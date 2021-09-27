@@ -1,51 +1,47 @@
-# IMPORT
-from typing import List  # noqa: F401
-
+# IMPORTS
+import os
+from libqtile import qtile
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
-#from libqtile.utils import guess_terminal
+from typing import List  # noqa: F401
 
 # Binds
 mod = "mod4"
 terminal = "xfce4-terminal" 
+browser = "firefox"
+filemanager = "nemo"
 
 keys = [
+    ### General Bindings
+    # Essential Binds
+    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod], "w", lazy.spawn(browser), desc="Launch browser"),
+    Key([mod], "r", lazy.spawn(filemanager), desc="Launch file manager"),
+    Key([mod], "d", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+
+    ### Window Management
     # Switch between windows
     Key([mod], "j", lazy.layout.next(), desc="Move window focus to other window"),
     Key([mod], "k", lazy.layout.previous(), desc="Move window focus to other window"),
-
     # Move Windows
     Key([mod, "shift"], "h", lazy.layout.shuffle_left()),
     Key([mod, "shift"], "l", lazy.layout.shuffle_right()),
     Key([mod, "shift"], "j", lazy.layout.shuffle_down()),
     Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
-
     # Change Ratios
-	Key([mod, "control"], 'h', lazy.layout.decrease_ratio()),
-	Key([mod, "control"], 'l', lazy.layout.increase_ratio()),
-
-
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    Key([mod, "shift"], "Return", lazy.layout.toggle_split(),
-        desc="Toggle between split and unsplit sides of stack"),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
-
-    # Toggle between different layouts as defined below
+	Key([mod, "control"], 'h', lazy.layout.decrease_ratio(), desc="Decrease Ratio"),
+	Key([mod, "control"], 'l', lazy.layout.increase_ratio(), desc="Increase Ratio"),
+    # Toggle States 
+    Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
+    Key([mod, "shift"], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
+    # Qtile 
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod, "shift"], "q", lazy.window.kill(), desc="Kill focused window"),
-
     Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawncmd(),
-        desc="Spawn a command using a prompt widget"),
 
 
-    # Custom
-    Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen"),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -57,24 +53,24 @@ for i in groups:
             desc="Switch to group {}".format(i.name)),
 
         # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
-            desc="Switch to & move focused window to group {}".format(i.name)),
+        #Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
+        #    desc="Switch to & move focused window to group {}".format(i.name)),
         # Or, use below if you prefer not to switch to that group.
         # # mod1 + shift + letter of group = move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-        #     desc="move focused window to group {}".format(i.name)),
+         Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
+             desc="move focused window to group {}".format(i.name)),
     ])
 
 layouts = [
     layout.MonadTall(ratio=0.55),
-    layout.Tile(ratio=0.55),
-    layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=4),
-    layout.Max(),
+    #layout.Tile(ratio=0.55),
+    #layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=4),
     # layout.MonadWide(),
     # layout.RatioTile(),
     # layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
+    layout.Max(),
 ]
 
 widget_defaults = dict(
@@ -82,10 +78,16 @@ widget_defaults = dict(
     fontsize=12,
     padding=3,
 )
+
 extension_defaults = widget_defaults.copy()
 
 screens = [Screen(top=bar.Bar([
-                widget.CurrentLayout(),
+                widget.CurrentLayoutIcon(
+                       custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
+                       padding = 0,
+                       scale = 0.7,
+                ),
+                #widget.CurrentLayout(),
                 widget.GroupBox(),
                 widget.Prompt(),
                 widget.WindowName(),
@@ -95,9 +97,8 @@ screens = [Screen(top=bar.Bar([
                     },
                     name_transform=lambda name: name.upper(),
                 ),
-                widget.TextBox("default config", name="default"),
-                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 widget.Systray(),
+                widget.Volume(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
                 widget.QuickExit(),
             ],
@@ -147,7 +148,3 @@ auto_minimize = True
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
-# IMPORT
-from typing import List  # noqa: F401
-
-from libqtile import bar, layout, widget
