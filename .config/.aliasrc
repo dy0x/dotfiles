@@ -39,7 +39,7 @@ alias \
 	ka="killall" \
 	gs="git status" \
 	f="ranger" \
-	lf="lfrun" \
+#	lf="lfrun" \
 	e="nvim" \
 	def="/usr/bin/sdcv" \
 	trem="transmission-remote" \
