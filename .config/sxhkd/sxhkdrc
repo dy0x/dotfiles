@@ -1,0 +1,74 @@
+# Programs
+super + w
+	$BROWSER
+super + e
+	nemo
+super + shift + e
+	$TERMINAL -e ranger
+super + r
+	$TERMINAL -e neomutt ; \
+	pkill -RTMIN+12 dwmblocks
+super + shift + g
+	$TERMINAL -e htop
+super + v
+	pavucontrol
+# super + shift +v
+# 	$TERMINAL -e nvim -c VimwikiIndex
+super + n
+	$TERMINAL -e newsboat ; \
+	pkill -RTMIN+13 dwmblocks
+super + shift + n
+	kill -s USR1 $(pidof deadd-notification-center)
+# super + m
+# 	$TERMINAL -e ncmpcpp
+# super + shift + m
+# 	$TERMINAL -e spt
+
+# Rofi
+super + d
+	rofi -show run
+super + c
+	rofi -show calc -modi calc -no-show-match -no-sort
+super + y
+	ytfzf -D
+super + shift + Escape
+	rofi -show power-menu -modi power-menu:rofi-power-menu
+super + backslash
+	emojimenu
+
+# Function keys
+super + F8
+	mailsync
+# super + F8
+# 	dualmonitor
+# super + shift + F8
+# 	dualtv
+
+# Misc
+super + Escape
+	betterlockscreen -l blur --display 1
+
+# Screenshot
+Print
+	flameshot gui
+Pause
+	flameshot gui --raw | \
+	tesseract --oem 2 -c preserve_interword_spaces=1 -l kor+eng stdin stdout | \
+	xclip -selection clipboard
+
+XF86AudioRaiseVolume
+	volchange volup ; \
+	pkill -RTMIN+10 dwmblocks
+XF86AudioLowerVolume
+	volchange voldown ; \
+	pkill -RTMIN+10 dwmblocks
+XF86AudioMute
+	volchange volmute ; \
+	pkill -RTMIN+10 dwmblocks
+
+shift + XF86AudioRaiseVolume
+	playerctl next &
+shift + XF86AudioLowerVolume
+	playerctl previous &
+shift + XF86AudioMute
+	playerctl play-pause &

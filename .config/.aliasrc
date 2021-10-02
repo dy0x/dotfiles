@@ -1,0 +1,65 @@
+#!/bin/bash
+# nvim > vim
+command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
+
+# Colours
+alias \
+	ls="ls -hN --color=auto --group-directories-first" \
+	l="ls -CF" \
+	la="ls -a" \
+	ll="ls -la" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" \
+	ccat="highlight --out-format=ansi"
+
+# Verbose
+alias \
+	bat="cat /sys/class/power_supply/BAT?/capacity" \
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -iv" \
+	mkd="mkdir -pv" \
+	yt="youtube-dl --add-metadata -i" \
+	yta="yt -x -f bestaudio/best" \
+	ffmpeg="ffmpeg -hide_banner"
+
+# ETC
+alias \
+	bib="nvim /$HOME/docs/University/uni.bib" \
+	p="sudo pacman" \
+	pu="yay -Syu --devel && pkill -RTMIN+8 dwmblocks" \
+	pd="sudo pacman -Rs $(pacman -Qtdq)" \
+	v="nvim" \
+	cfg="nvim ~/src/dwm/config.h" \
+	rcfg="sudo make -C ~/src/dwm clean install" \
+	hotkey="nvim ~/.config/sxhkd/sxhkdrc" \
+	dwmcfg="cd /$HOME/src/dwm && nvim config.def.h" \
+	dwmclean="make clean && rm -f config.h" \
+	dwmins="dwmclean && sudo make clean install" \
+	zshcfg="nvim /$XDG_CONFIG_HOME/zsh/.zshrc" \
+	ka="killall" \
+	gs="git status" \
+	f="ranger" \
+	e="nvim" \
+	def="/usr/bin/sdcv" \
+	trem="transmission-remote" \
+	tremcli="transmission-remote-cli" \
+	dots="/usr/bin/git --git-dir=$HOME/.local/dotfiles --work-tree=$HOME" \
+	feh="feh --scale-down --auto-zoom --image-bg black" \
+	mpds="mpdscribble --conf /$XDG_CONFIG_HOME/mpdscribble/mpdscribble.conf" \
+
+# Swallow
+alias \
+	mpv="devour mpv" \
+	zathura="devour zathura" \
+# Directories
+alias \
+	scripts="cd ~/.local/bin/" \
+	conf="cd ~/.config" \
+	build="cd ~/Source"
+
+# Non XDG compliant T-T
+alias \
+	abook="abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook" \
+	calcurse="calcurse -q -D ~/.config/calcurse" \
+	tmux="tmux -f ~/.config/tmux.conf"
