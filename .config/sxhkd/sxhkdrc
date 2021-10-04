@@ -12,8 +12,8 @@ super + shift + g
 	$TERMINAL -e htop
 super + v
 	pavucontrol
-# super + shift +v
-# 	$TERMINAL -e nvim -c VimwikiIndex
+super + shift +v
+	anki
 super + n
 	$TERMINAL -e newsboat ; \
 	pkill -RTMIN+13 dwmblocks

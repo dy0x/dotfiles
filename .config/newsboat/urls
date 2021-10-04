@@ -1,4 +1,10 @@
-# News
-https://redflag.org.au/rss "~Red Flag" "News"
-https://www.archlinux.org/feeds/news/ "~Arch Linux News" "News"
+"query:Unread:unread = \"yes\"" meta
+
+# news
+https://redflag.org.au/rss "~Red Flag" news
+https://www.archlinux.org/feeds/news/ "~Arch Linux News" news
+https://news.ycombinator.com/rss news
+
+# yt
+https://www.youtube.com/feeds/videos.xml?channel_id=UCaoxFlhy4oGz3EvkTGhWvkA yt
 

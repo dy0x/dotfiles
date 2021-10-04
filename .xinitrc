@@ -25,6 +25,7 @@ keepassxc &
 nm-applet &
 dwmblocks &
 sxhkd &
+blueberry-tray &
 rclone --vfs-cache-mode writes mount "uni onedrive": /home/dylan/onedrive &
 #nabi &
 #nordvpn c Australia Sydney &

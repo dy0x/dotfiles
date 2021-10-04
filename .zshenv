@@ -13,6 +13,7 @@ export BIB="$HOME/Documents/University/uni.bib"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
+export LC_CTYPE=en_US.UTF-8
 
 export INPUTRC="${XDG_CONFIG_HOME:-$HOME/.config}/inputrc"
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
@@ -38,6 +39,7 @@ export GNUPGHOME="${XDG_DATA_HOME:-$HOME/.local/share}/.gnupg"
 export WINEPREFIX="${XDG_DATA_HOME:-$HOME/.local/share}/wineprefixes/default"
 export KODI_DATA="${XDG_DATA_HOME:-$HOME/.local/share}/kodi"
 export YTFZF_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/ytfzf"
+export CALCURSE_CALDAV_PASSWORD="$(pass show calcurse) calcurse-caldav"
 
 # Etc Progs
 export DICS="/usr/share/stardict/dic/"
