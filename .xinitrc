@@ -27,14 +27,12 @@ dwmblocks &
 sxhkd &
 blueberry-tray &
 rclone --vfs-cache-mode writes mount "uni onedrive": /home/dylan/onedrive &
-#nabi &
+mpdscribble --conf ~/.config/mpdscribble/mpdscribble.conf &
 #nordvpn c Australia Sydney &
 xss-lock --transfer-sleep-lock -- betterlockscreen -l blur --display 1 &
-#flatpak run com.discordapp.Discord --start-minimized --disable-seccomp-filter-sandbox &
-#flatpak run com.discordapp.Discord --start-minimized &
 
 # Fcitx
-#fcitx &
+fcitx &
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx

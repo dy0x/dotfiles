@@ -66,16 +66,26 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Use ranger to switch directories and bind it to ctrl-o
-rangercd () {
+# rangercd () {
+#     tmp="$(mktemp)"
+#     lf --choosedir="$tmp" "$@"
+#     if [ -f "$tmp" ]; then
+#         dir="$(cat "$tmp")"
+#         rm -f "$tmp" >/dev/null
+#     	[ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+#     fi
+# }
+lfcd () {
     tmp="$(mktemp)"
-    ranger --choosedir="$tmp" "$@"
+    lf -last-dir-path="$tmp" "$@"
     if [ -f "$tmp" ]; then
         dir="$(cat "$tmp")"
         rm -f "$tmp" >/dev/null
-    	[ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
-bindkey -s '^o' 'rangercd\n'
+# bindkey -s '^o' 'rangercd\n'
+bindkey -s '^o' 'lfcd\n'
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 
 # fix systemctl auto complete in zsh.

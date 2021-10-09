@@ -4,7 +4,7 @@
 export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
 
 # Default Progs
-export FILE="ranger"
+export FILE="nemo"
 export TERMINAL="st"
 export EDITOR="nvim"
 export BROWSER="firefox"
