@@ -1,10 +1,12 @@
 !! Transparency:
-*.alpha: 1.00
+*.alpha: 0.90
 
 !! Set a default font and font size as below:
-/* *.font: comicmono:size=13 */
 Xcursor.size: 16
+
 /* *.font: Liberation Mono:size=12 */
+
+/* *.font: comicmono:size=13 */
 
 *.font: Noto Sans Mono:size=12
 

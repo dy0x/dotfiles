@@ -1,6 +1,10 @@
 # Programs
 super + w
 	$BROWSER
+super + shift + w
+	chromium
+super + control +w
+	qutebrowser
 super + e
 	nemo
 super + shift + e
@@ -19,8 +23,8 @@ super + n
 	pkill -RTMIN+13 dwmblocks
 super + shift + n
 	kill -s USR1 $(pidof deadd-notification-center)
-# super + m
-# 	$TERMINAL -e ncmpcpp
+super + m
+	$TERMINAL -e ncmpcpp
 # super + shift + m
 # 	$TERMINAL -e spt
 
@@ -72,3 +76,4 @@ shift + XF86AudioLowerVolume
 	playerctl previous &
 shift + XF86AudioMute
 	playerctl play-pause &
+

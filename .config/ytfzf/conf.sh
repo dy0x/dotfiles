@@ -56,15 +56,15 @@ external_menu_len=220
 #the player to use for playing the video, must be able to stream from youtube-dl
 #vlc also works
 #(YTFZF_PLAYER)
-video_player="devour mpv"
+video_player="mpv"
 
 #the player to use when choosing a video format with $YTFZF_PREF
 #(YTFZF_PLAYER_FORMAT)
-video_player_format="devour mpv --ytdl-format="
+video_player_format="mpv --ytdl-format="
 
 #the player to use for audio ( option -m )
 #(YTFZF_AUDIO_PLAYER)
-audio_player="devour mpv --no-video"
+audio_player="mpv --no-video"
 
 #enable/disable ytfzf's use of your $FZF_DEFAULT_OPTS
 #depending on your fzf settings, this could mess up the formatting of the menu
