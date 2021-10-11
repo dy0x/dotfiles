@@ -1,5 +1,5 @@
 !! Transparency:
-*.alpha: 0.90
+*.alpha: 0.95
 
 !! Set a default font and font size as below:
 Xcursor.size: 16
