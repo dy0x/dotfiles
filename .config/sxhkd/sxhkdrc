@@ -5,11 +5,11 @@ super + shift + w
 	chromium
 super + control +w
 	qutebrowser
-super + e
-	nemo
-super + shift + e
-	$TERMINAL -e ranger
 super + r
+	nemo
+super + shift + r
+	$TERMINAL -e ranger
+super + e
 	$TERMINAL -e neomutt ; \
 	pkill -RTMIN+12 dwmblocks
 super + shift + g

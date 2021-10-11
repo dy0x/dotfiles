@@ -47,6 +47,7 @@ alias \
 	dots="/usr/bin/git --git-dir=$HOME/.local/dotfiles --work-tree=$HOME" \
 	feh="feh --scale-down --auto-zoom --image-bg black" \
 	mpds="mpdscribble --conf /$XDG_CONFIG_HOME/mpdscribble/mpdscribble.conf" \
+	minsteam="steam -no-browser +open steam://open/minigameslist" \
 
 # Swallow
 alias \
