@@ -1,0 +1,5 @@
+#!/bin/sh
+
+bluetoothctl disconnect 74:65:0C:BA:00:83 && notify-send -i /usr/share/icons/Adwaita/32x32/status/bluetooth-disabled-symbolic.symbolic.png "Bluetooth Headphones Disconnected"
+
+
