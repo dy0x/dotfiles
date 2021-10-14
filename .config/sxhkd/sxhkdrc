@@ -3,13 +3,13 @@ super + w
 	$BROWSER
 super + shift + w
 	chromium
-super + control +w
+super + control + w
 	qutebrowser
-super + r
-	nemo
-super + shift + r
-	$TERMINAL -e ranger
 super + e
+	nemo
+super + shift + e
+	$TERMINAL -e ranger
+super + r
 	$TERMINAL -e neomutt ; \
 	pkill -RTMIN+12 dwmblocks
 super + shift + g
@@ -43,8 +43,8 @@ super + backslash
 # Function keys
 super + F8
 	mailsync
-# super + F8
-# 	dualmonitor
+super + F9
+ 	togglecompositor
 # super + shift + F8
 # 	dualtv
 
