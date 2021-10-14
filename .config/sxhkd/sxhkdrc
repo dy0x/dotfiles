@@ -41,6 +41,10 @@ super + backslash
 	emojimenu
 
 # Function keys
+super + F6
+	btdisconnect
+super + F7
+	btconnect
 super + F8
 	mailsync
 super + F9
