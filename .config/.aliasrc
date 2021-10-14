@@ -37,7 +37,7 @@ alias \
 	dwmclean="make clean && rm -f config.h" \
 	dwmins="dwmclean && sudo make clean install" \
 	zshcfg="nvim /$XDG_CONFIG_HOME/zsh/.zshrc" \
-	ka="killall" \
+	ka="killall -s KILL" \
 	gs="git status" \
 	f="ranger" \
 	e="nvim" \
