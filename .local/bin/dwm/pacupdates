@@ -10,4 +10,5 @@ fi
 
 updates=$(("$updates_arch" + "$updates_aur"))
 
-[ "$updates" -gt 0 ] && echo "📦 $updates" || echo "📦 0"
+#[ "$updates" -gt 0 ] && echo "📦 $updates" || echo "📦 0"
+[ "$updates" -gt 0 ] && echo " $updates" || echo " 0"

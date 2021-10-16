@@ -2,8 +2,10 @@
 
 dwm_date () {
 	printf "%s" "$SEP1"
-	printf "📅 %s" "$(date "+%a %y-%m-%d ")"
-	printf "🕓 %s" "$(date "+%H:%M")"
+	# printf "📅 %s" "$(date "+%a %y-%m-%d ")"
+	printf "󰃮 %s" "$(date "+%a %y-%m-%d ")"
+	# printf "🕓 %s" "$(date "+%H:%M")"
+	printf " 󰥔 %s" "$(date "+%H:%M")"
 	printf "%s\n" "$SEP2"
 	# printf "%s" "$SEP1"
 	# printf "%s" "$(date "+%a %y-%m-%d ")"
