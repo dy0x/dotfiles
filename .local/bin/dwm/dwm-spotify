@@ -8,7 +8,8 @@ if ps -C spotify > /dev/null; then
        	STATUS=$(playerctl -p spotify status)
 	# ALBUM=$(playerctl -p spotify metadata album)
 
-	[ "$STATUS" = "Playing" ] && STATUS="" || STATUS=""
+	#[ "$STATUS" = "Playing" ] && STATUS="" || STATUS=""
+	[ "$STATUS" = "Playing" ] && STATUS="" || STATUS=""
 
         printf "%s%s %s: %s " "$SEP1" "$STATUS" "$ARTIST" "$TRACK"
         printf "%s\n" "$SEP2"

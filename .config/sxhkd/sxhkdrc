@@ -4,6 +4,8 @@ super + w
 super + shift + w
 	chromium
 super + control + w
+	$TERMINAL -e amfora
+super + alt + w
 	qutebrowser
 super + e
 	nemo

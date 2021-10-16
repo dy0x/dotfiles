@@ -53,6 +53,7 @@ alias \
 alias \
 	mpv="devour mpv" \
 	zathura="devour zathura" \
+	qute="devour qutebrowser" \
 # Directories
 alias \
 	scripts="cd ~/.local/bin/" \
