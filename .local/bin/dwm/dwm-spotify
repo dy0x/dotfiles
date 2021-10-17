@@ -1,27 +1,16 @@
 #!/bin/sh
 
 if ps -C spotify > /dev/null; then
-       	ARTIST=$(playerctl -p spotify metadata artist)
-	TRACK=$(playerctl -p spotify metadata title | cut -d "(" -f1 | cut -d "[" -f1 | head -c 25)
-#		cuts "(" because i had problems with dwmblocks clipping, more consistent fix than head
-#		head -c 25)
-       	STATUS=$(playerctl -p spotify status)
-	# ALBUM=$(playerctl -p spotify metadata album)
-
-	#[ "$STATUS" = "Playing" ] && STATUS="" || STATUS=""
-	[ "$STATUS" = "Playing" ] && STATUS="" || STATUS=""
-
-        printf "%s%s %s: %s " "$SEP1" "$STATUS" "$ARTIST" "$TRACK"
-        printf "%s\n" "$SEP2"
+	PLAYER="spotify"
+	STATUS=$(playerctl -p $PLAYER status)
+	[ "$STATUS" = "Playing" ] && STATUS="󰓇" || STATUS="󰓇󰏤"
+elif ps -C clementine > /dev/null; then
+	PLAYER="clementine"
+       	STATUS=$(playerctl -p $PLAYER status)
+ 	[ "$STATUS" = "Playing" ] && STATUS="󰝚" || STATUS="󰏤"
 fi
-# elif ps -C spotifyd > /dev/null; then
-# 	ARTIST=$(playerctl -p spotifyd metadata artist)
-#        	TRACK=$(playerctl -p spotifyd metadata title | head -c 30)
-#        	STATUS=$(playerctl -p spotifyd status)
-# 	ALBUM=$(playerctl -p spotifyd metadata album)
 
-# 	[ "$STATUS" = "Playing" ] && STATUS="▶" || STATUS=""
+ARTIST=$(playerctl -p $PLAYER metadata artist)
+TRACK=$(playerctl -p $PLAYER metadata title | cut -d "(" -f1 | cut -d "[" -f1 | head -c 25)
 
-#         printf "%s%s %s: %s " "$SEP1" "$STATUS" "$ARTIST" "$TRACK"
-#         printf "%s\n" "$SEP2"
-# fi
+printf "%s%s %s: %s " "$SEP1" "$STATUS" "$ARTIST" "$TRACK" ; printf "%s\n" "$SEP2"
