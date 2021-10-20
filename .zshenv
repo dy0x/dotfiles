@@ -51,6 +51,9 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 # Slow Gnome Apps Fix
 dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 
+# A E S T H E T I C
+export PF_INFO="ascii title os kernel uptime wm pkgs memory palette"
+
 [ -f "$HOME/.config/.aliasrc" ] && source "$HOME/.config/.aliasrc"
 
 if [[ "$(tty)" == '/dev/tty1' ]]; then

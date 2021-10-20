@@ -14,11 +14,22 @@ Xcursor.size: 16
 /* !! custom purple theme */
 /* dwm.normbordercolor:	#282A36 */
 /* dwm.normbgcolor:	#282A36 */
-dwm.normbordercolor:	#1d2021
-dwm.normbgcolor:	#1d2021
+
+/* dwm.normbordercolor:	#1d2021 */
+/* dwm.normbgcolor:	#1d2021 */
+/* dwm.normfgcolor:	#F8F8F2 */
+/* dwm.selbordercolor:	#7851a9 */
+/* dwm.selbgcolor:		#7851a9 */
+/* dwm.selfgcolor:		#F8F8F2 */
+
+!! dc colors
+dwm.normbordercolor:	#101820
+dwm.normbgcolor:	#101820
 dwm.normfgcolor:	#F8F8F2
-dwm.selbordercolor:	#7851a9
-dwm.selbgcolor:		#7851a9
+/* dwm.selbordercolor:	#F2C763 */
+
+dwm.selbordercolor:	#8A2A2B
+dwm.selbgcolor:		#8A2A2B
 dwm.selfgcolor:		#F8F8F2
 
 !! gruvbox-esque theme

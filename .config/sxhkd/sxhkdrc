@@ -17,8 +17,12 @@ super + r
 super + shift + g
 	$TERMINAL -e htop
 super + v
-	pavucontrol
-super + shift +v
+	$TERMINAL -e pulsemixer && \
+	pkill -RTMIN+10 dwmblocks
+super + shift + v
+	pavucontrol && \
+	pkill -RTMIN+10 dwmblocks
+super + shift + a
 	anki
 super + n
 	$TERMINAL -e newsboat ; \
@@ -27,6 +31,8 @@ super + shift + n
 	kill -s USR1 $(pidof deadd-notification-center)
 super + m
 	$TERMINAL -e ncmpcpp
+super + shift + m
+ 	clementine
 # super + shift + m
 # 	$TERMINAL -e spt
 
@@ -60,7 +66,7 @@ super + Escape
 
 # Screenshot
 Print
-	flameshot gui
+	flameshot gui -p /home/dylan/pictures/Screenshots/Flameshot
 Pause
 	flameshot gui --raw | \
 	tesseract --oem 2 -c preserve_interword_spaces=1 -l kor+eng stdin stdout | \
@@ -82,4 +88,3 @@ shift + XF86AudioLowerVolume
 	playerctl previous &
 shift + XF86AudioMute
 	playerctl play-pause &
-
