@@ -45,9 +45,10 @@ alias \
 	trem="transmission-remote" \
 	tremcli="transmission-remote-cli" \
 	dots="/usr/bin/git --git-dir=$HOME/.local/dotfiles --work-tree=$HOME" \
-	feh="feh --scale-down --auto-zoom --image-bg black" \
+	feh="feh --scale-down --auto-zoom --image-bg black --start-at"  \
 	mpds="mpdscribble --conf /$XDG_CONFIG_HOME/mpdscribble/mpdscribble.conf" \
 	minsteam="steam -no-browser +open steam://open/minigameslist" \
+	fetch="clear && echo ' \n' && pfetch" \
 
 # Swallow
 alias \
