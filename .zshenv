@@ -5,10 +5,10 @@ export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$
 
 # Default Progs
 export FILE="nemo"
-export TERMINAL="st"
+export TERMINAL="gnome-terminal"
 export EDITOR="nvim"
 export BROWSER="firefox"
-export READER="zathura"
+# export READER="zathura"
 export BIB="$HOME/Documents/University/uni.bib"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -39,7 +39,7 @@ export GNUPGHOME="${XDG_DATA_HOME:-$HOME/.local/share}/.gnupg"
 export WINEPREFIX="${XDG_DATA_HOME:-$HOME/.local/share}/wineprefixes/default"
 export KODI_DATA="${XDG_DATA_HOME:-$HOME/.local/share}/kodi"
 export YTFZF_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/ytfzf"
-export CALCURSE_CALDAV_PASSWORD="$(pass show calcurse) calcurse-caldav"
+#export CALCURSE_CALDAV_PASSWORD="$(pass show calcurse) calcurse-caldav"
 
 # Etc Progs
 export DICS="/usr/share/stardict/dic/"
@@ -51,10 +51,17 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 # Slow Gnome Apps Fix
 dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export GLFW_IM_MODULE=ibus
+
 # A E S T H E T I C
 export PF_INFO="ascii title os kernel uptime wm pkgs memory palette"
 
 [ -f "$HOME/.config/.aliasrc" ] && source "$HOME/.config/.aliasrc"
+
+xset mouse 7/8 0
 
 if [[ "$(tty)" == '/dev/tty1' ]]; then
 	exec startx
