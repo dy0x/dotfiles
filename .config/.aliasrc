@@ -1,0 +1,71 @@
+#!/bin/bash
+# nvim > vim
+command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
+
+# Colours
+alias ls="ls -hN --color=auto --group-directories-first"
+alias l="ls -CF --color=auto"
+alias la="ls -a --color=auto"
+alias ll="ls -la --color=auto"
+alias grep="grep --color=auto"
+alias diff="diff --color=auto"
+alias ccat="highlight --out-format=ansi"
+
+# Apt
+alias apti="sudo apt install"
+alias aptr="sudo apt remove"
+alias apts="apt search"
+alias apte="sudo -e /etc/apt/sources.list"
+alias aptu="sudo apt update && apt upgrade && flatpak update"
+alias aptfu="sudo apt update && apt upgrade && apt dist-upgrade"
+
+# Verbose
+alias bat="cat /sys/class/power_supply/BAT?/capacity"
+alias cp="cp -iv"
+alias mv="mv -iv"
+alias rm="rm -iv"
+alias mkd="mkdir -pv"
+alias yt="yt-dlp --add-metadata -i"
+alias yta="yt -x -f bestaudio/best"
+# alias yt="youtube-dl --add-metadata -i"
+# alias yta="yt -x -f bestaudio/best"
+alias ffmpeg="ffmpeg -hide_banner"
+
+# ETC
+alias wtdl="python3.8 /$HOME/src/WebtoonDownloader/Webtoon_Downloader.py --mergeAsPdf"
+alias bib="nvim /$HOME/docs/University/uni.bib"
+alias v="nvim"
+alias cfg="nvim ~/src/dwm/config.h"
+alias rcfg="sudo make -C ~/src/dwm clean install"
+alias hotkey="nvim ~/.config/sxhkd/sxhkdrc"
+alias dwmcfg="cd /$HOME/src/dwm && nvim config.def.h"
+alias dwmclean="make clean && rm -f config.h"
+alias dwmins="dwmclean && sudo make clean install"
+alias zshcfg="nvim /$XDG_CONFIG_HOME/zsh/.zshrc"
+alias ka="killall -s KILL"
+alias gs="git status"
+alias f="ranger"
+alias e="nvim"
+alias def="/usr/bin/sdcv"
+alias trem="transmission-remote"
+alias tremcli="transmission-remote-cli"
+alias dots="/usr/bin/git --git-dir=$HOME/.local/dotfiles --work-tree=$HOME"
+alias feh="feh --scale-down --auto-zoom --image-bg black --start-at"  \
+alias mpds="mpdscribble --conf /$XDG_CONFIG_HOME/mpdscribble/mpdscribble.conf"
+alias minsteam="steam -no-browser +open steam://open/minigameslist"
+alias fetch="clear && echo ' \n' && pfetch"
+
+# Swallow
+#alias mpv="devour mpv"
+#alias zathura="devour zathura"
+#alias qute="devour qutebrowser"
+
+# Directories
+alias scripts="cd ~/.local/bin/"
+alias conf="cd ~/.config"
+alias build="cd ~/Source"
+
+# Non XDG compliant T-T
+alias abook="abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook"
+alias calcurse="calcurse -q -D ~/.config/calcurse"
+alias tmux="tmux -f ~/.config/tmux.conf"
