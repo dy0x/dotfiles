@@ -1,0 +1,3 @@
+#!/bin/sh
+
+[ "pgrep picom" ] && $(pkill picom && notify-send "Compositor Disabled") || $(picom -b && notify-send "Compositor Enabled") &

@@ -1,0 +1,4 @@
+#!/bin/sh
+ [ "$(nordvpn status | grep Status | tr -d ' ' | cut -d ':' -f2)" == "Connected" ] &&
+	 echo "🔗$(nordvpn status | grep "Current server" | cut -d ':' -f2 | head -c 3)" ||
+	 echo "❎vpn"

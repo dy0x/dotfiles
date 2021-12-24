@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# switches to sbc and then to aac, bit of a hacky work-around to fix weird desync issues
+
+bluetoothctl connect 74:65:0C:BA:00:83 && sleep 2 && pactl set-card-profile bluez_card.74_65_0C_BA_00_83 a2dp-sink-sbc && sleep 4 && pactl set-card-profile bluez_card.74_65_0C_BA_00_83 a2dp-sink-aac && notify-send -i /usr/share/icons/Adwaita/32x32/status/bluetooth-active-symbolic.symbolic.png "Bluetooth Headphones Connected"
+
+#bluetoothctl connect 74:65:0C:BA:00:83 && pactl set-card-profile bluez_card.74_65_0C_BA_00_83 a2dp-sink-aac && notify-send -i /usr/share/icons/Adwaita/32x32/status/bluetooth-active-symbolic.symbolic.png "Bluetooth Headphones Connected"
+
