@@ -20,7 +20,7 @@ Plug 'kovetskiy/sxhkd-vim'
 Plug 'stevearc/vim-arduino'
 Plug 'lervag/vimtex'
 Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'unblevable/quick-scope'
 Plug 'tomasiser/vim-code-dark'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
@@ -40,6 +40,7 @@ set mouse=a
 set nohlsearch
 "set clipboard+=unnamedplus
 set clipboard^=unnamed,unnamedplus
+set termguicolors
 
 " Some basics:
 	nnoremap c "_c

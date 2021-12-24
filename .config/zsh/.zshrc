@@ -1,5 +1,5 @@
 stty stop undef # Disable freezing term with ctrl+s
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/src/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # History
 HISTFILE=/$HOME/.cache/zsh/history
@@ -71,26 +71,27 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Use ranger to switch directories and bind it to ctrl-o
-# rangercd () {
-#     tmp="$(mktemp)"
-#     lf --choosedir="$tmp" "$@"
-#     if [ -f "$tmp" ]; then
-#         dir="$(cat "$tmp")"
-#         rm -f "$tmp" >/dev/null
-#     	[ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-#     fi
-# }
-lfcd () {
+rangercd () {
     tmp="$(mktemp)"
-    lf -last-dir-path="$tmp" "$@"
+    ranger --choosedir="$tmp" "$@"
     if [ -f "$tmp" ]; then
         dir="$(cat "$tmp")"
         rm -f "$tmp" >/dev/null
-        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    	[ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
-# bindkey -s '^o' 'rangercd\n'
-bindkey -s '^o' 'lfcd\n'
+
+# lfcd () {
+#     tmp="$(mktemp)"
+#     lf -last-dir-path="$tmp" "$@"
+#     if [ -f "$tmp" ]; then
+#         dir="$(cat "$tmp")"
+#         rm -f "$tmp" >/dev/null
+#         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+#     fi
+# }
+bindkey -s '^o' 'rangercd\n'
+#bindkey -s '^o' 'lfcd\n'
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 
 # fix systemctl auto complete in zsh.
@@ -98,13 +99,12 @@ _systemctl_unit_state() {
   typeset -gA _sys_unit_state
   _sys_unit_state=( $(__systemctl list-unit-files "$PREFIX*" | awk '{print $1, $2}') ) }
 
-# Edit line in vim with ctrl-e:
+# Edit line in vim with ctrl-e
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 [ -f "$HOME/.config/.aliasrc" ] && source "$HOME/.config/.aliasrc"
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+source ~/src/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
