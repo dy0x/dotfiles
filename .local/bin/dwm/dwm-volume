@@ -13,13 +13,13 @@ volmute="$(pamixer --get-mute)"
 # 	icon="🔉"
 # fi
 if [ "$volmute" == "true" ]; then
-	icon="󰸈"
+	icon="🔇"
 elif [ "$vol" -gt "70" ]; then
-	icon="󰕾"
+	icon=""
 elif [ "$vol" -lt "30" ]; then
-	icon="󰕿"
+	icon=""
 else
-	icon="󰖀"
+	icon=""
 fi
 
 printf "%s %s%%\\n" "$icon" "$vol"
