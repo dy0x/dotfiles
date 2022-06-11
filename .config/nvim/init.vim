@@ -17,7 +17,6 @@ Plug 'vimwiki/vimwiki'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'kovetskiy/sxhkd-vim'
-Plug 'stevearc/vim-arduino'
 Plug 'lervag/vimtex'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -56,9 +55,6 @@ set termguicolors
 
 	autocmd FileType tex,latex,markdown setlocal spell spelllang=en_au
 
-" Arduino in Vim! :)
-	let g:arduino_cmd = '/usr/share/arduino/arduino'
-	let g:arduino_dir = '/usr/share/arduino'
 
 " Goyo plugin makes text more readable when writing prose:
 	map <leader>f :Goyo \| set bg=light \| set linebreak<CR>
@@ -137,10 +133,3 @@ set termguicolors
 	autocmd BufWritePost *sxhkdrc !pkill -USR1 sxhkd
 " Refresh polybar when polybar cfg is updated.
 	autocmd BufWritePost *polybar/config !rpol
-
-" my_file.ino [arduino:avr:uno]
-	function! MyStatusLine()
-  		return '%f [' . g:arduino_board . ']'
-	endfunction
-	setl statusline=%!MyStatusLine()
-	autocmd BufNewFile,BufRead *.ino let g:airline_section_x='%{MyStatusLine()}'
