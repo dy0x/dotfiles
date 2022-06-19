@@ -1,0 +1,35 @@
+"query:---Unread---:unread = \"yes\"" meta
+"query:News:tags # \"news\"" meta
+"query:YouTube:tags # \"yt\"" meta
+"query:K-Pop:tags # \"kpop\"" meta
+
+
+---News---
+https://redflag.org.au/rss "~Red Flag" news
+https://www.archlinux.org/feeds/news/ "~Arch Linux News" news
+#https://news.ycombinator.com/rss news
+
+---YT---
+https://www.youtube.com/feeds/videos.xml?channel_id=UCaoxFlhy4oGz3EvkTGhWvkA yt
+
+---Blogs---
+https://www.dylrex.com/rss.xml "~dylrex.com" blog
+
+---SNS---
+https://nitter.ca/izone_bot/rss "~IZ*ONE Bot" kpop
+https://nitter.ca/7_DREAMERS/rss "~7 DREAMERS" kpop
+#https://bibliogram.snopyta.org/u/_chaechae_1/rss.xml "~Chaewonie IG" kpop
+#https://bibliogram.snopyta.org/u/minn.__.ju/rss.xml "~Min IG" kpop
+#https://bibliogram.snopyta.org/u/_yujin_an/rss.xml "~Jinnie IG" kpop
+#https://bibliogram.snopyta.org/u/yena.jigumina/rss.xml "~Yena IG" kpop
+#https://bibliogram.snopyta.org/u/hyemhyemu/rss.xml "~Hyem IG" kpop
+#https://bibliogram.snopyta.org/u/for_everyoung10/rss.xml "~Wony IG" kpop
+#https://bibliogram.snopyta.org/u/zo__glasss/rss.xml "~Yuri IG" kpop
+#https://bibliogram.snopyta.org/u/39saku_chan/rss.xml "~Sakuchan IG" kpop
+#https://bibliogram.snopyta.org/u/chaestival_/rss.xml "~Chaeyeon IG" kpop
+#https://bibliogram.snopyta.org/u/silver_rain.__/rss.xml "~Kwon Leader IG" kpop
+#https://bibliogram.snopyta.org/u/75_yabuki/rss.xml "~Nabuki Yako IG" kpop
+#https://bibliogram.snopyta.org/u/10_hitomi_06/rss.xml "~Hiichan IG" kpop
+
+---MISC---
+https://based.cooking/rss.xml recipe

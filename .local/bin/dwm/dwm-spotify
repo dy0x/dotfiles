@@ -1,0 +1,25 @@
+#!/bin/sh
+
+if ps -C spotify > /dev/null; then
+	PLAYER="spotify"
+	STATUS=$(playerctl -p $PLAYER status)
+	ARTIST=$(playerctl -p $PLAYER metadata artist)
+	TRACK=$(playerctl -p $PLAYER metadata title | cut -d "(" -f1 | cut -d "[" -f1 | head -c 25)
+	[ "$STATUS" = "Playing" ] && STATUS="" || STATUS=""
+	printf "%s%s %s: %s " "$SEP1" "$STATUS" "$ARTIST" "$TRACK" ; printf "%s\n" "$SEP2"
+elif ps -C clementine > /dev/null; then
+	PLAYER="clementine"
+       	STATUS=$(playerctl -p $PLAYER status)
+	ARTIST=$(playerctl -p $PLAYER metadata artist)
+	TRACK=$(playerctl -p $PLAYER metadata title | cut -d "(" -f1 | cut -d "[" -f1 | head -c 25)
+ 	[ "$STATUS" = "Playing" ] && STATUS="" || STATUS=""
+	printf "%s%s %s: %s " "$SEP1" "$STATUS" "$ARTIST" "$TRACK" ; printf "%s\n" "$SEP2"
+else
+	STATUS=$(mpc | awk -F '[][]' '{print $2}' | tail -2)
+	[ "$STATUS" = "Playing" ] && STATUS="" || STATUS=""
+	MPC_STATUS=$(mpc current)
+	printf "%s %s" "$STATUS" "$MPC_STATUS"
+fi
+
+
+#printf "%s%s %s: %s " "$SEP1" "$STATUS" "$ARTIST" "$TRACK" ; printf "%s\n" "$SEP2"

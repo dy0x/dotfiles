@@ -1,0 +1,3 @@
+#!/bin/sh
+sleep 0.2; scrot -a $(slop -f '%x,%y,%w,%h') ~/Pictures/Screenshots/%y%m%d_%H:%M:%S_screenshot.png -e 'xclip -selection c -t image/png < $f'
+notify-send 'Scrot: Copied to Clipboard!' 'Screenshot saved to ~/Pictures/Screenshots/'
