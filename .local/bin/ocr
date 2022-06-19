@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/bin/sh
 
 [ -z "$1" ] && printf "Error: You need to provide a language.\nUsage: %s [language]\nTo specify multiple languages, use a '+' delimiter (not recommended).\n\n" "$0" && tesseract --list-langs && exit 1
 
@@ -6,30 +6,26 @@ TEXT_FILE="/tmp/ocr.txt"
 IMAGE_FILE="/tmp/ocr.png"
 
 # Check if the needed dependencies are installed
-dependencies=(tesseract maim notify-send xclip)
-for dependency in "${dependencies[@]}"; do
-    type -p "$dependency" &>/dev/null || {
-        notify-send "OCR" "Could not find '${dependency}', is it installed?"
-        echo "Could not find '${dependency}', is it installed?"
+for depend in tesseract maim notify-send xclip; do
+    command -v "$depend" > /dev/null 2>&1 || {
+        notify-send "OCR" "Could not find '${depend}', is it installed?"
+        echo "Could not find '${depend}', is it installed?"
         exit 1
     }
 done
 
 # Select screenshot area with maim
-maim -s "$IMAGE_FILE"
-
-# Get the exit code of the previous command
-STATUS=$?
-
-# If the user pressed the escape key or did something to terminate the proccess taking a screenshot, then just exit
-[ $STATUS -ne 0 ] && exit 1
+maim -s "$IMAGE_FILE" || {
+	notify-send "OCR ⚠️" "OCR selection was aborted."
+	exit 1
+}
 
 case "$1" in
-	kor) tesseract --oem 1 --psm 6 -l "$1" -c preserve_interword_spaces=1 "$IMAGE_FILE" "${TEXT_FILE//\.txt/}" 2> /dev/null ;;
-	chi_sim) tesseract --oem 1 --psm 6 -l "$1" -c preserve_interword_spaces=1 "$IMAGE_FILE" "${TEXT_FILE//\.txt/}" 2> /dev/null ;;
-	chi_tra) tesseract --oem 1 --psm 6 -l "$1" -c preserve_interword_spaces=1 "$IMAGE_FILE" "${TEXT_FILE//\.txt/}" 2> /dev/null ;;
-	eng) tesseract -l "$1" "$IMAGE_FILE" "${TEXT_FILE//\.txt/}" 2> /dev/null ;;
-	*) tesseract --oem 1 --psm 6 -l "$1" -c preserve_interword_spaces=1 "$IMAGE_FILE" "${TEXT_FILE//\.txt/}" 2> /dev/null ;;
+	kor) tesseract --oem 1 --psm 6 -l "$1" -c preserve_interword_spaces=1 "$IMAGE_FILE" "${TEXT_FILE%.txt}" 2> /dev/null ;;
+	chi_sim) tesseract --oem 1 --psm 6 -l "$1" -c preserve_interword_spaces=1 "$IMAGE_FILE" "${TEXT_FILE%.txt}" 2> /dev/null ;;
+	chi_tra) tesseract --oem 1 --psm 6 -l "$1" -c preserve_interword_spaces=1 "$IMAGE_FILE" "${TEXT_FILE%.txt}" 2> /dev/null ;;
+	eng) tesseract -l "$1" "$IMAGE_FILE" "${TEXT_FILE%.txt}" 2> /dev/null ;;
+	*) tesseract --oem 1 --psm 6 -l "$1" -c preserve_interword_spaces=1 "$IMAGE_FILE" "${TEXT_FILE%.txt}" 2> /dev/null ;;
 esac
 
 # Remove the new page character.
@@ -37,16 +33,14 @@ sed -i 's/\x0c//' "$TEXT_FILE"
 
 # Check if the text was detected by checking number of lines in the file
 NUM_LINES=$(wc -l < $TEXT_FILE)
-if [ "$NUM_LINES" -eq 0 ]; then
-    notify-send "OCR" "no text was detected"
-    exit 1
-fi
+
+[ "$NUM_LINES" -eq -0 ] && notify-send "OCR" "No text was detected." && exit 1
 
 # Copy text to clipboard
 xclip -selection clip < "$TEXT_FILE"
 
 # Send a notification with the text that was grabbed using OCR
-notify-send "ocr" "$(cat $TEXT_FILE)"
+notify-send "OCR 🔎" "$(cat $TEXT_FILE)"
 
 # Clean up
 rm "$TEXT_FILE"
