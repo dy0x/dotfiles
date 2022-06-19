@@ -22,8 +22,11 @@ STATUS=$?
 # If the user pressed the escape key or did something to terminate the process while taking a screenshot, then just exit
 [ $STATUS -ne 0 ] && exit 1
 
+# Specify language(s) to use
+LANG=chi_sim
+
 # Remove .txt from the file path
-tesseract "$IMAGE_FILE" "${TEXT_FILE//\.txt/}" 2> /dev/null
+tesseract --oem 1 --psm 6 -l "$LANG" -c preserve_interword_spaces=1 "$IMAGE_FILE" "${TEXT_FILE//\.txt/}" 2> /dev/null
 
 # Remove the new page character
 sed -i 's/\x0c//' "$TEXT_FILE"
