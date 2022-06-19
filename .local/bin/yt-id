@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/env bash
 BASEURL="https://www.youtube.com/feeds/videos.xml?channel_id="
 
 # Invidious Instances
@@ -8,15 +8,15 @@ BASEURL="https://www.youtube.com/feeds/videos.xml?channel_id="
 # BASEURL="https://invidious.kavin.rocks/feed/channel/"
 # BASEURL="https://inv.riverside.rocks/feed/channel/"
 
-[ -z "$1" ]  && printf "Usage: $0 [options] -u [URL | Username]\n" && exit 1
+[ -z "$1" ]  && printf "Usage: %s [options] -u [URL | Username]\n" "$0" && exit 1
 
 URL=$1
 curl -Ls "$URL" > /dev/null || URL="https://www.youtube.com/$URL"
 
 # Actually getting the ID
-read ID < <(curl -Ls "$URL" | grep -o -P '.{0,0}channel_id.{0,25}' | sed '$!d' | cut -c 12-35)
+read -r ID < <(curl -Ls "$URL" | grep -o -P '.{0,0}channel_id.{0,25}' | sed '$!d' | cut -c 12-35)
 [ -z "$ID" ] && printf "Channel not found.\n" && exit 1
 
 # Prints out the credentials
-printf "ID:\t%s\n" $ID
-printf "RSS:\t%s\n" $BASEURL$ID
+printf "ID:\t%s\n" "$ID"
+printf "RSS:\t%s\n" "$BASEURL$ID"
