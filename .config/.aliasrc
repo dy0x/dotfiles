@@ -1,9 +1,5 @@
 #!/bin/bash
-# nvim > vim
-command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
-
-# Colours
-alias ls="ls -hN --color=auto --group-directories-first"
+# nvim > vim command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" Colours alias ls="ls -hN --color=auto --group-directories-first"
 alias l="ls -CF --color=auto"
 alias la="ls -a --color=auto"
 alias ll="ls -la --color=auto"
@@ -49,7 +45,7 @@ alias e="nvim"
 alias def="/usr/bin/sdcv"
 alias trem="transmission-remote"
 alias tremcli="transmission-remote-cli"
-alias dots="/usr/bin/git --git-dir=$HOME/.local/dotfiles --work-tree=$HOME"
+alias dots="/usr/bin/git --git-dir=$HOME/Source/dotfiles --work-tree=$HOME"
 alias feh="feh --scale-down --auto-zoom --image-bg black --start-at"  \
 alias mpds="mpdscribble --conf /$XDG_CONFIG_HOME/mpdscribble/mpdscribble.conf"
 alias minsteam="steam -no-browser +open steam://open/minigameslist"
