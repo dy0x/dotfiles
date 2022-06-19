@@ -1,10 +1,11 @@
-stty stop undef # Disable freezing term with ctrl+s
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# History
-HISTFILE=/$HOME/.cache/zsh/history
-HISTSIZE=10000
-SAVEHIST=10000
+# Prompt & Colours
+autoload -U colors && colors
+PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+stty stop undef # Disable freezing term with ctrl+s
+setopt autocd # Auto cd into typed dir
+setopt interactive_comments
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -13,24 +14,19 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-
-# Prompt and colours
-autoload -U colors && colors
-PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-#PROMPT=" %F{178}%~%f %F{1}>%f "
-
-# Basic Options
-setopt autocd # Auto cd into typed dir
-
+# History
+HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
+HISTSIZE=100000
+SAVEHIST=100000
 
 # Auto and Tab completion
 autoload -Uz compinit
 zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # auto capitalize
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots) #include dotfiles
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 # Automatically quote pasted urls
 autoload -Uz bracketed-paste-magic
@@ -50,17 +46,11 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
 # Change cursor shape for different vi modes.
-function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] ||
-     [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q'
-
-  elif [[ ${KEYMAP} == main ]] ||
-       [[ ${KEYMAP} == viins ]] ||
-       [[ ${KEYMAP} = '' ]] ||
-       [[ $1 = 'beam' ]]; then
-    echo -ne '\e[5 q'
-  fi
+function zle-keymap-select () {
+    case $KEYMAP in
+        vicmd) echo -ne '\e[1 q';;      # block
+        viins|main) echo -ne '\e[5 q';; # beam
+    esac
 }
 zle -N zle-keymap-select
 zle-line-init() {
@@ -96,13 +86,16 @@ bindkey -s '^o' 'rangercd\n'
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 
 # fix systemctl auto complete in zsh.
-_systemctl_unit_state() {
-  typeset -gA _sys_unit_state
-  _sys_unit_state=( $(__systemctl list-unit-files "$PREFIX*" | awk '{print $1, $2}') ) }
+# _systemctl_unit_state() {
+#   typeset -gA _sys_unit_state
+#   _sys_unit_state=( $(__systemctl list-unit-files "$PREFIX*" | awk '{print $1, $2}') ) }
 
 # Edit line in vim with ctrl-e
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
+bindkey -M vicmd '^[[P' vi-delete-char
+bindkey -M vicmd '^e' edit-command-line
+bindkey -M visual '^[[P' vi-delete
 
 [ -f "$HOME/.config/.aliasrc" ] && source "$HOME/.config/.aliasrc"
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
