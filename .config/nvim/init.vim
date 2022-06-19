@@ -55,7 +55,6 @@ set termguicolors
 
 	autocmd FileType tex,latex,markdown setlocal spell spelllang=en_au
 
-
 " Goyo plugin makes text more readable when writing prose:
 	map <leader>f :Goyo \| set bg=light \| set linebreak<CR>
 

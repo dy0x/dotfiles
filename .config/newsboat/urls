@@ -5,7 +5,8 @@
 
 
 ---News---
-https://redflag.org.au/rss "~Red Flag" news
+https://morss.it/:items=||*[class=card_title__OBghu]/https://redflag.org.au/
+#https://redflag.org.au/rss "~Red Flag" news
 https://www.archlinux.org/feeds/news/ "~Arch Linux News" news
 #https://news.ycombinator.com/rss news
 
@@ -14,6 +15,9 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UCaoxFlhy4oGz3EvkTGhWvkA yt
 
 ---Blogs---
 https://www.dylrex.com/rss.xml "~dylrex.com" blog
+https://lukesmith.xyz/rss "~Luke Smith Blog" blog
+https://lukesmith.xyz/videos "~Luke Smith Videos" yt
+https://notrelated.xyz/rss "~Not Related Podcast" yt podcast
 
 ---SNS---
 https://nitter.ca/izone_bot/rss "~IZ*ONE Bot" kpop
