@@ -34,7 +34,7 @@ sed -i 's/\x0c//' "$TEXT_FILE"
 # Check if the text was detected by checking number of lines in the file
 NUM_LINES=$(wc -l < $TEXT_FILE)
 
-[ "$NUM_LINES" -eq -0 ] && notify-send "OCR" "No text was detected." && exit 1
+[ "$NUM_LINES" -eq -0 ] && notify-send "OCR 🔎" "No text was detected." && exit 1
 
 # Copy text to clipboard
 xclip -selection clip < "$TEXT_FILE"
