@@ -1,0 +1,11 @@
+"query:---Unread---:unread = \"yes\"" meta
+"query:News:tags # \"news\"" meta
+"query:YouTube:tags # \"yt\"" meta
+
+
+---News---
+#https://news.ycombinator.com/rss news
+
+---YT---
+#https://www.youtube.com/feeds/videos.xml?channel_id=UCaoxFlhy4oGz3EvkTGhWvkA yt
+
