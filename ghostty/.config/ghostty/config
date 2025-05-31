@@ -1,0 +1,5 @@
+font-family = "Hack Nerd Font Mono"
+font-size = 20
+shell-integration = zsh
+theme = GruvboxDark
+macos-option-as-alt = true
