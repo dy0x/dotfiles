@@ -1,0 +1,32 @@
+#!/bin/bash
+#command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
+
+# Terminal Commands
+alias ls="ls -h --color=auto"
+alias l="ls -CF"
+alias la="ls -a"
+alias ll="ls -la"
+alias grep="grep --color=auto"
+alias diff="diff --color=auto"
+
+# Verbose
+alias cp="cp -iv"
+alias mv="mv -iv"
+alias rm="rm -iv"
+alias mkd="mkdir -pv"
+alias yt="yt-dlp --add-metadata -i"
+alias yta="yt -x -f bestaudio/best"
+alias ffmpeg="ffmpeg -hide_banner"
+
+# ETC
+alias bib="nvim /$HOME/docs/University/uni.bib"
+alias v="nvim"
+alias acfg="nvim $HOME/.config/.aliasrc"
+alias zshcfg="nvim $HOME/.zshrc"
+alias gs="git status"
+alias f="ranger"
+alias dots="/usr/bin/git --git-dir=$HOME/Source/dotfiles/ --work-tree=$HOME"
+
+# Directories
+alias scripts="cd ~/.local/bin/"
+alias conf="cd ~/.config"
