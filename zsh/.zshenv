@@ -1,3 +1,3 @@
 . "$HOME/.cargo/env"
-ZDOTDIR=~/.config/zsh
-source -- "$ZDOTDIR"/.zshenv
+#ZDOTDIR=~/.config/zsh
+#source -- "$ZDOTDIR"/.zshenv
