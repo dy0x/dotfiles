@@ -12,6 +12,8 @@ export XDG_RUNTIME_DIR="$TMPDIR/runtime-$UID"
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 
 # Clean
+export AZURE_CONFIG_DIR="$XDG_DATA_HOME"/azure
+export DOTNET_CLI_HOME="$XDG_DATA_HOME"/dotnet
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 export NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME"/npm/config/npm-init.js
