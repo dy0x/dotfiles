@@ -1,18 +1,30 @@
-# Prompt & Colours
+
+IS_MAC=false
+IS_LINUX=false
+
+case "$(uname -s)" in
+  Darwin) IS_MAC=true ;;
+  Linux)  IS_LINUX=true ;;
+esac
+
+if $IS_MAC; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  export PNPM_HOME="/Users/dylanoxenbridge/Library/pnpm"
+  case ":$PATH:" in
+      *":$PNPM_HOME:"*) ;;
+      *) export PATH="$PNPM_HOME:$PATH" ;;
+  esac
+elif $IS_LINUX; then
+  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
 autoload -U colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 stty stop undef # Disable freezing term with ctrl+s
 setopt autocd # Auto cd into typed dir
 setopt interactive_comments
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# History
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
 HISTSIZE=100000
 SAVEHIST=100000
@@ -79,7 +91,8 @@ lfcd () {
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
-#bindkey -s '^o' 'rangercd\n'
+
+# bindkey -s '^o' 'rangercd\n'
 bindkey -s '^o' 'lfcd\n'
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 
@@ -95,14 +108,5 @@ bindkey -M vicmd '^[[P' vi-delete-char
 bindkey -M vicmd '^e' edit-command-line
 bindkey -M visual '^[[P' vi-delete
 
-export PNPM_HOME="/Users/dylanoxenbridge/Library/pnpm"
-case ":$PATH:" in
-    *":$PNPM_HOME:"*) ;;
-    *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
 [ -f "$HOME/.config/.aliasrc" ] && source "$HOME/.config/.aliasrc"
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
-
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+eval "$(starship init zsh)"
