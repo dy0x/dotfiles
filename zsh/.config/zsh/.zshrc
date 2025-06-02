@@ -25,15 +25,19 @@ stty stop undef # Disable freezing term with ctrl+s
 setopt autocd # Auto cd into typed dir
 setopt interactive_comments
 
-HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
+HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
 HISTSIZE=100000
 SAVEHIST=100000
 
-# Auto and Tab completion
+
+mkdir -p "$XDG_CACHE_HOME"/zsh
+
 autoload -Uz compinit
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME"/zsh/zcompcache
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # auto capitalize
 zmodload zsh/complist
+compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 compinit
 _comp_options+=(globdots) #include dotfiles
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
