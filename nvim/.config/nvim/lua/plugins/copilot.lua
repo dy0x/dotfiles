@@ -7,7 +7,7 @@ return {
       vim.g.copilot_enabled = false
       vim.g.copilot_no_tab_map = true
 
-      vim.keymap.set('i', '<C-J>', 'copilot#Accept("<CR>")', { expr = true, silent = true, desc = 'Copilot accept' })
+      vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', { expr = true, silent = true, replace_keycodes = false, desc = 'Copilot accept' })
 
       local function toggle_copilot()
         if vim.g.copilot_enabled then
