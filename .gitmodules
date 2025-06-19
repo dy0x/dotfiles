@@ -1,0 +1,3 @@
+[submodule "mpv/.config/mpv/scripts/subs2srs"]
+	path = mpv/.config/mpv/scripts/subs2srs
+	url = https://github.com/Ajatt-Tools/mpvacious

@@ -78,7 +78,7 @@ automatically-unhide-macos-hidden-apps = true
     alt-equal = 'resize smart +50'
 
     alt-f = 'fullscreen'
-    cmd-f = 'macos-native-fullscreen'
+    # cmd-f = 'macos-native-fullscreen'
     # alt-shift-c = 'reload-config'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
