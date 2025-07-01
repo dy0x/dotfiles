@@ -7,13 +7,17 @@ alt + shift + o         : komorebic reload-configuration
 alt + i                 : komorebic toggle-shortcuts
 
 # App shortcuts - these require shell to be pwsh / powershell
-alt + w                 : if ($wshell.AppActivate('Zen') -eq $False) { start zen }
-alt + f                 : if ($wshell.AppActivate('Explorer')) -eq $False) {start explorer}
-#alt + e                 : if ($wshell.AppActivate('File Explorer') - eq $False) {start explorer}
+alt + z                 : if ($wshell.AppActivate('Zen Browser') -eq $False) { start zen }
+alt + f                 : start explorer.exe
+alt + return            : start wt.exe
+alt + m                 : if ($wshell.AppActivate('Outlook') -eq $False) { start olk }
+alt + n                 : if ($wshell.AppActivate('AnyDesk') -eq $False) { start AnyDesk }
+# alt + b                 : if ($wshell.AppActivate('Webex') -eq $False) { start CiscoCollabHost }
+alt + b                 : if ($wshell.AppActivate('Code') -eq $False) { start code }
 
 alt + shift + b         : yasbc toggle-bar
-alt + shift + q         : komorebic close
-alt + m                 : komorebic minimize
+alt + shift + w         : komorebic close
+#alt + m                 : komorebic minimize
 
 alt + k                 : komorebic cycle-focus previous
 alt + j                 : komorebic cycle-focus next
