@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0
-HoldThreshold := 200         
+HoldThreshold := 150         
 
 ; shared flag
 global HyperLayer := false    ; true while the hold layer is active
