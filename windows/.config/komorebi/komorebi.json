@@ -23,7 +23,7 @@
         },
         {
           "name": "2",
-          "layout": "Columns",
+          "layout": "VerticalStack",
           "initial_workspace_rules": [
             {
               "kind": "Exe",
