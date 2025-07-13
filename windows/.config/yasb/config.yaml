@@ -1,0 +1,368 @@
+watch_stylesheet: true
+watch_config: true
+debug: false
+komorebi:
+  start_command: "komorebic start --whkd"
+  stop_command: "komorebic stop --whkd"
+  reload_command: "komorebic stop --whkd && komorebic start --whkd"
+bars:
+  primary-bar:
+    enabled: true
+    screens: ['*'] 
+    class_name: "yasb-bar"
+    alignment:
+      position: "top"
+      center: false
+    blur_effect:
+      enabled: false
+      acrylic: false
+      dark_mode: false
+      round_corners: false
+      border_color: None
+    window_flags:
+      always_on_top: false
+      hide_on_fullscreen: true
+      windows_app_bar: true
+      auto_hide: false
+    dimensions:
+      width: "100%"
+      height: 30
+    padding:
+      top: 0
+      left: 0
+      bottom: 0
+      right: 0
+    widgets:
+      left: [
+          # "home", 
+          "komorebi_workspaces", 
+          "komorebi_active_layout",
+          "active_window",
+      ]
+      center: [
+          "clock",
+        ]
+      right: [
+          "systray",
+          "vscode",
+          # "language",
+          "pomodoro",
+          "weather",
+          "wifi",
+          "volume",
+          "battery",
+          "power_menu"
+      ]
+widgets:
+  home:
+    type: "yasb.home.HomeWidget"
+    options:
+      label: "<span>\udb80\udf5c</span>"
+      menu_list:
+        - { title: "Home", path: "~" }
+        - { title: "Downloads", path: "~\\Downloads"}
+        - { title: "Documents", path: "~\\Documents"}
+        - { title: "Pictures", path: "~\\Pictures"}
+        - { title: "Videos", path: "~\\Videos"}
+      system_menu: true
+      power_menu: false
+      blur: true
+      round_corners: true
+      round_corners_type: "small"
+      border_color: "#7aa2f7"
+      alignment: "left"
+      offset_left: 4
+      offset_top: 0
+  active_window:
+    type: "yasb.active_window.ActiveWindowWidget"
+    options:
+      label: "{win[title]}"
+      label_alt: "[class_name='{win[class_name]}' exe='{win[process][name]}' hwnd={win[hwnd]}]"
+      label_no_window: ""
+      label_icon: true
+      label_icon_size: 14
+      max_length: 50
+      max_length_ellipsis: "..."
+      monitor_exclusive: true
+  clock:
+    type: "yasb.clock.ClockWidget"
+    options:
+      label: "<span>\uf017</span>{%Y/%m/%d %H:%M}"
+      label_alt: "<span>\uf017</span>{%A, %B %d. %Y %H:%M}"
+      locale: "cn_ZH"
+      timezones: []
+      calendar:
+        round_corners: true
+        round_corners_type: "small"
+        border_color: "#7aa2f7"
+        alignment: "center"
+        offset_top: 0
+  wifi:
+    type: "yasb.wifi.WifiWidget"
+    options:
+      label: "<span>{wifi_icon}</span> {wifi_strength}%"
+      label_alt: "<span>{wifi_icon}</span> {wifi_name} {wifi_strength}%"
+      ethernet_label: "<span>{wifi_icon}</span>"
+      ethernet_label_alt: "<span>{wifi_icon}</span> {wifi_name}"
+      ethernet_icon: "\uf108"
+      update_interval: 5000
+      callbacks:
+        on_left: "exec quick_settings"
+        on_middle: "do_nothing"
+        on_right: "toggle_label"
+      wifi_icons: [
+        "\udb82\udd2e",  # Icon for 0% strength
+        "\udb82\udd1f",  # Icon for 1-20% strength
+        "\udb82\udd22",  # Icon for 21-40% strength
+        "\udb82\udd25",  # Icon for 41-80% strength
+        "\udb82\udd28"   # Icon for 81-100% strength
+      ]
+  volume:
+    type: "yasb.volume.VolumeWidget"
+    options:
+      label: "<span>{icon}</span> {level}"
+      label_alt: "{volume}"
+      volume_icons:
+        - "\ueee8"  # Icon for muted
+        - "\uf026"  # Icon for 0-10% volume
+        - "\uf027"  # Icon for 11-30% volume
+        - "\uf027"  # Icon for 31-60% volume
+        - "\uf028"  # Icon for 61-100% volume
+      audio_menu:
+        blur: true
+        round_corners: true
+        round_corners_type: "small"
+        border_color: "#7aa2f7"
+        alignment: "center"
+        direction: "down"
+        offset_top: 0
+      callbacks:
+        on_right: "toggle_mute"
+  battery:
+    type: "yasb.battery.BatteryWidget"
+    options:
+      label: "<span>{icon}</span>{percent}%"
+      label_alt: "<span>{icon}</span> {percent}% | time: {time_remaining}"
+      hide_unsupported: true
+      charging_options:
+        icon_format: "{charging_icon}" 
+  language:
+    type: "yasb.language.LanguageWidget"
+    options:
+      label: "{lang[language_code]}-{lang[country_code]}"
+      label_alt: "{lang[full_name]}"
+      update_interval: 5
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "do_nothing"
+        on_right: "toggle_label"
+      language_menu:
+        blur: true
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "system"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        show_layout_icon: true
+        layout_icon: "\uf11c"
+      label_shadow:
+        enabled: true
+        color: "black"
+        radius: 3
+        offset: [ 1, 1 ]
+  pomodoro:
+    type: "yasb.pomodoro.PomodoroWidget"
+    options:
+      label: "<span>{icon}</span> {remaining}"
+      label_alt: "<span>{icon}</span> {session}/{total_sessions} - {status}"
+      work_duration: 25
+      break_duration: 5
+      long_break_duration: 15
+      long_break_interval: 4
+      auto_start_breaks: true
+      auto_start_work: true
+      sound_notification: true
+      show_notification: true
+      hide_on_break: false
+      session_target: 8
+      icons:
+        work: "\uf252"
+        break: "\uf253"
+        paused: "\uf254"
+      container_padding:
+        top: 0
+        left: 6
+        bottom: 0
+        right: 6
+      menu:
+        blur: true
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "System"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        circle_background_color: "#09ffffff"
+        circle_work_progress_color: "#88c0d0"
+        circle_break_progress_color: "#a3be8c"
+        circle_thickness: 8
+        circle_size: 160
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "reset_timer"
+        on_right: "toggle_label"
+      label_shadow:
+        enabled: true
+        color: "black"
+        radius: 3
+        offset: [ 1, 1 ]
+  power_menu:
+    type: "yasb.power_menu.PowerMenuWidget"
+    options:
+      label: "\uf011"
+      uptime: True
+      blur: False
+      blur_background: True
+      animation_duration: 200
+      button_row: 5
+      buttons:
+        shutdown: ["\uf011", "Shut Down"]
+        restart: ["\uead2", "Restart"]
+        signout: ["\udb80\udf43", "Sign out"]
+        hibernate: ["\uf28e", "Hibernate"]
+        sleep: ["\u23fe", "Sleep"]
+        cancel: ["", "Cancel"]
+  komorebi_workspaces:
+    type: "komorebi.workspaces.WorkspaceWidget"
+    options:
+      label_offline: "Komorebi Offline"
+      label_workspace_btn: "{index}"
+      label_workspace_active_btn: "{index}"
+      label_workspace_populated_btn: "{index}"
+      label_default_name: "{index}"
+      label_zero_index: false
+      hide_empty_workspaces: false
+      hide_if_offline: false
+      animation: true
+      toggle_workspace_layer:
+        enabled: false
+        tiling_label: "Tiling"
+        floating_label: "Floating"
+      container_padding: 
+        top: 0
+        left: 8
+        bottom: 0
+        right: 8
+      btn_shadow:
+        enabled: false 
+        color: "black"
+        radius: 3
+        offset: [ 1, 1 ]
+  komorebi_active_layout:
+    type: "komorebi.active_layout.ActiveLayoutWidget"
+    options:
+      hide_if_offline: true
+      label: "{icon}"
+      layouts:
+        [
+          "bsp",
+          "columns",
+          "ultrawide_vertical_stack",
+          # "rows",
+          # "grid",
+          # "vertical_stack",
+          # "horizontal_stack",
+          # "right_main_vertical_stack",
+        ]
+      layout_icons:
+        bsp: "[BSP]"
+        columns: "[COL]"
+        ultrawide_vertical_stack: "[UW]"
+        monocle: "MONOCLE"
+        floating: "FLOATING"
+        paused: "PAUSED"
+      container_padding:
+        top: 0
+        left: 8
+        bottom: 0
+        right: 8
+      callbacks:
+        on_left: "next_layout"
+        on_middle: "toggle_monocle"
+        on_right: "prev_layout"
+  systray:
+    type: "yasb.systray.SystrayWidget"
+    options:
+      class_name: "systray"
+      label_collapsed: "<<"
+      label_expanded: ">>"
+      label_position: "left" # Can be "left" or "right"
+      icon_size: 16 # Can be any integer between 8 and 64
+      pin_click_modifier: "alt" # Can be "ctrl", "alt" or "shift"
+      show_unpinned: false
+      show_unpinned_button: true
+      show_battery: false
+      show_volume: false
+      show_network: false
+      container_padding:
+          left: 0
+          top: 0
+          right: 0
+          bottom: 0
+      btn_shadow:
+        enabled: false
+        color: "black"
+        radius: 3
+        offset: [ 1, 1 ]
+  weather:
+    type: "yasb.weather.WeatherWidget"
+    options:
+      label: "<span>{icon}</span> {temp}"
+      label_alt: "{location}: Min {min_temp}, Max {max_temp}, Humidity {humidity}"
+      api_key: ''
+      update_interval: 600
+      hide_decimal: true
+      location: ''
+      callbacks:
+        on_left: "toggle_label"
+      icons:
+        sunnyDay: "\ue30d"
+        clearNight: "\ue32b"
+        cloudyDay: "\ue312"
+        cloudyNight: "\ue311"
+        rainyDay: "\ue308"
+        rainyNight: "\ue333"
+        snowyIcyDay: "\ue30a"
+        snowyIcyNight: "\ue335"
+        blizzardDay: "\udb83\udf36"
+        blizzardNight: "\udb83\udf36"
+        foggyDay: "\ue303"
+        foggyNight: "\ue346"
+        thunderstormDay: "\ue30f"
+        thunderstormNight: "\ue338"
+        default: "\uebaa"
+  vscode:
+    type: "yasb.vscode.VSCodeWidget"
+    options:
+      label: "<span>\udb82\ude1e</span>"
+      label_alt: "<span>\udb82\ude1e</span> recents"
+      menu_title: "<span style='font-weight:bold'>VScode</span> recents"
+      max_field_size: 50
+      folder_icon: "\uf114"
+      file_icon: "\uf016"
+      truncate_to_root_dir: true
+      hide_folder_icon: true
+      hide_file_icon: false
+      max_number_of_folders: 30
+      max_number_of_files: 30 # set to 0 if you only want folders
+      modified_date_format: "Modified: %Y-%m-%d %H:%M"
+      cli_command: "code" # or "codium" or "windsurf" or any other CLI command to open the workspace
+      menu:
+        blur: true
+        round_corners: true
+        round_corners_type: "small"
+        alignment: 'center'
+        offset_top: 0
