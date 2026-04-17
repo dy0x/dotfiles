@@ -26,6 +26,7 @@ alias zshcfg="nvim $HOME/.zshrc"
 alias gs="git status"
 alias f="ranger"
 alias dots="/usr/bin/git --git-dir=$HOME/Source/dotfiles/ --work-tree=$HOME"
+alias monerod="monerod --data-dir $XDG_DATA_HOME/bitmonero"
 
 # Directories
 alias scripts="cd ~/.local/bin/"
