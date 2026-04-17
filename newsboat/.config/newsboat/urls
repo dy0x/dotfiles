@@ -1,34 +1,44 @@
 "query:---Unread---:unread = \"yes\"" meta
 "query:News:tags # \"news\"" meta
 "query:YouTube:tags # \"yt\"" meta
-"query:Podcasts:tags # \"pod\"" meta
+"query:Podcasts:tags # \"podcast\"" meta
 "query:Blogs:tags # \"blog\"" meta
 
 ---BLOG---
 https://lukesmith.xyz/rss "~Luke Smith" blog
 #https://denshi.org/blog/index.xml "~Denshi" blog
-https://sethforprivacy.com/index.xml "~Seth For Privacy" blog
+https://sethforprivacy.com/index.xml "~Seth For Privacy" blog monero bitcoin
 
 ---NEWS---
 https://www.therage.co/rss/ monero news
-https://www.scmp.com/rss/91/feed/
+#https://www.scmp.com/rss/91/feed/
 #https://news.ycombinator.com/rss news
-#https://www.cgtn.com/subscribe/rss/section/china.xml
-#https://www.cgtn.com/subscribe/rss/section/world.xml
 https://old.reddit.com/r/Sino/.rss "~r/Sino" news
-
-#---TIMEWASTERS---
-#https://old.reddit.com/r/MoreTankieDeprogram/.rss
+https://monero.observer/feed-stories-mini.xml news monero
 
 ---YOUTUBE---
-https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA yt linux
-https://www.youtube.com/feeds/videos.xml?channel_id=UCngn7SVujlvskHRvRKc1cTw yt linux
-https://www.youtube.com/feeds/videos.xml?channel_id=UCiOpJdeI87TBu8FJNgRdUVA yt monero
-https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA yt linux
-https://www.youtube.com/feeds/videos.xml?channel_id=UCn1P2pBjXNz2QL-Y9MuhXlg yt monero
+https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "~Luke Smith" yt linux
+https://www.youtube.com/feeds/videos.xml?channel_id=UCngn7SVujlvskHRvRKc1cTw "~Bugswriter" yt linux
+#https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA "~Mental Outlaw" yt linux
+https://odysee.com/$/rss/@AlphaNerd:8 "~Mental Outlaw" yt linux privacy tech
+#https://www.youtube.com/feeds/videos.xml?channel_id=UCn1P2pBjXNz2QL-Y9MuhXlg "~Monero Matteo" yt monero
+https://odysee.com/$/rss/@MoneroMatteo:b "~Monero Matteo" yt monero
+https://www.youtube.com/feeds/videos.xml?channel_id=UC-lHJZR3Gqxm24_Vd_AJ5Yw "~PewDiePie" yt slop
+https://www.youtube.com/feeds/videos.xml?channel_id=UCdBXOyqr8cDshsp7kcKDAkg "~Big A" yt slop news
 
----BTCXMR---
-https://www.antimoonboy.com/index.xml pod monero
-https://monero.observer/feed-stories-mini.xml news monero
-https://old.reddit.com/r/monero/.rss "~r/Monero" monero
-https://old.reddit.com/r/bitcoin+bitcoinaus/.rss "~r/Bitcoin" bitcoin
+---CHRISTIAN---
+https://www.youtube.com/feeds/videos.xml?channel_id=UC4ocopmnWmwViIHELoo1Gkg "~Harmony" yt christ 
+https://www.youtube.com/feeds/videos.xml?channel_id=UC4aWj7pnKGsNAnA4brBNIYQ "~Garett Bearenger" yt christ minimalism
+https://www.youtube.com/feeds/videos.xml?channel_id=UCIzsvne5RKi0qsA6KNQDbsg "~Ethan Stabs" yt christ
+https://www.youtube.com/feeds/videos.xml?channel_id=UCJgtqm1YmP1gEseEE4FlJFQ "~Biblical Understanding" yt christ
+https://www.youtube.com/feeds/videos.xml?channel_id=UC3P5Jx2rvUKRW62hc75q8oQ "~TheOtherPaul" yt christ
+https://www.youtube.com/feeds/videos.xml?channel_id=UC3qqJta0_Yndh_ZfxiAesQg "~Anglican Aesthetics" yt christ
+
+
+---PODCASTS---
+https://www.antimoonboy.com/index.xml podcast monero
+
+#https://old.reddit.com/r/monero/.rss "~r/Monero" monero
+#https://old.reddit.com/r/bitcoin+bitcoinaus/.rss "~r/Bitcoin" bitcoin
+
+#---中文---

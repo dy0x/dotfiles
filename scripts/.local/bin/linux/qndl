@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# --- 1. Environment Detection ---
+# Detect Task Spooler (ts on Mac, tsp on Linux)
+if command -v ts >/dev/null 2>&1; then
+    TS_CMD="ts"
+elif command -v tsp >/dev/null 2>&1; then
+    TS_CMD="tsp"
+else
+    echo "Error: task-spooler (ts/tsp) not found." >&2
+    exit 1
+fi
+
+# Detect Notification System
+notify() {
+    local msg="$1"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS Native
+        osascript -e "display notification \"$msg\" with title \"Task Spooler\""
+    elif command -v notify-send >/dev/null 2>&1; then
+        # Linux Native
+        notify-send "Task Spooler" "$msg"
+    else
+        # Fallback to terminal output
+        echo "Notification: $msg"
+    fi
+}
+
+# --- 2. Input Handling ---
+[ -z "$1" ] && { echo "Usage: $0 <url> [command]"; exit 1; }
+
+URL="$1"
+# Clean up the filename for the OS
+# This removes URL parameters and replaces %20 with spaces
+BASE_NAME=$(basename "$URL" | sed "s/?.*//;s/%20/ /g")
+
+# --- 3. Command Logic ---
+# If no command provided, default to yt-dlp with a safe output name
+if [ -z "$2" ]; then
+    # We use -o to ensure the filename matches our BASE_NAME expectation
+    CMD="yt-dlp --embed-metadata -ic -o \"$BASE_NAME\""
+else
+    CMD="$2"
+fi
+
+# --- 4. Execution ---
+notify "⏳ Queuing $BASE_NAME..."
+
+# Queue the download
+IDNUM=$($TS_CMD $CMD "$URL")
+
+# Queue the "Done" notification to run after the download ID completes
+$TS_CMD -D "$IDNUM" bash -c "
+    if [ \$? -eq 0 ]; then
+        # Success notification (using a subshell to ensure notify function is available)
+        $(declare -f notify); notify '👍 $BASE_NAME done.'
+    else
+        $(declare -f notify); notify '❌ $BASE_NAME failed.'
+    fi
+"
