@@ -1,6 +1,6 @@
 # Komorebi
 alt + shift - o         : komorebic reload-configuration
-alt - i                 : komorebic toggle-shortcuts Focus windows
+# alt - i                 : komorebic toggle-shortcuts Focus windows
 
 # Move windows
 alt - k                 : komorebic cycle-focus previous
@@ -63,3 +63,11 @@ alt + shift - 6         : komorebic send-to-workspace 5
 alt + shift - 7         : komorebic send-to-workspace 6
 alt + shift - 8         : komorebic send-to-workspace 7
 alt + shift - 9         : komorebic send-to-workspace 8
+
+# Launch Programs
+alt - return            : open -na ghostty
+alt - w                 : open -na "Brave Browser.app" --args --profile-directory="Profile 1"
+alt - e                 : open -a finder
+alt - c                 : open -a "Brave Browser.app" --args --profile-directory="Default"
+alt - n                 : ghostty -e "newsboat"
+alt - m                 : open -a mail
