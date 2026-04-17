@@ -1,5 +1,7 @@
-font-family = "Hack Nerd Font Mono"
+font-family = "FiraCode Nerd Font"
 font-size = 20
 shell-integration = zsh
-theme = GruvboxDarkHard
+theme = "Gruvbox Dark Hard"
 macos-option-as-alt = true
+background-opacity = 0.90
+

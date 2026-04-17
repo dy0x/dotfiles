@@ -1,3 +1,5 @@
 **/.DS_Store
 .zcompdump
 **/yasb.log*
+karabiner/.config/karabiner/automatic_backups/
+scripts/.local/bin/claude
