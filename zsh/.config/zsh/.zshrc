@@ -114,3 +114,8 @@ bindkey -M visual '^[[P' vi-delete
 
 [ -f "$HOME/.config/.aliasrc" ] && source "$HOME/.config/.aliasrc"
 eval "$(starship init zsh)"
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/USERNAME/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions

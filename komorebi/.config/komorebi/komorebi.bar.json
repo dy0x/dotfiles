@@ -1,0 +1,76 @@
+{
+  "$schema": "https://komorebi-for-mac.lgug2z.com/komorebi.bar.0.1.0.schema.json",
+  "font_family": "JetBrainsMono Font",
+  "height": 25,
+  "theme": {
+    "palette": "Base16",
+    "name": "GruvboxDarkHard"
+  },
+  "left_widgets": [
+    {
+      "Komorebi": {
+        "workspaces": {
+          "enable": true,
+          "hide_empty_workspaces": true
+        },
+        "layout": {
+          "enable": true
+        },
+        "focused_container": {
+          "enable": true,
+          "show_icon": true
+        }
+      }
+    }
+  ],
+  "right_widgets": [
+    {
+      "Update": {
+        "enable": true
+      }
+    },
+    {
+      "Storage": {
+        "enable": true,
+        "label_prefix": "Icon",
+        "show_removable_disks": false
+      }
+    },
+    {
+      "Cpu": {
+        "enable": true,
+        "label_prefix": "Icon"
+      }
+    },
+    {
+      "Memory": {
+        "enable": true,
+        "label_prefix": "Icon"
+      }
+    },
+    {
+      "Network": {
+        "enable": false,
+        "show_activity": false,
+        "show_total_activity": false 
+      }
+    },
+    {
+      "Battery":{
+        "enable": true
+      }
+    },
+    {
+      "Date": {
+        "enable": true,
+        "format": "DayDateMonthYear"
+      }
+    },
+    {
+      "Time": {
+        "enable": true,
+        "format": "TwentyFourHour"
+      }
+    }
+  ]
+}
