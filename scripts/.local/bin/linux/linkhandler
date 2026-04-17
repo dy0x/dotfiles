@@ -1,27 +1,54 @@
 #!/bin/sh
 
-# Feed script a url or file location.
-# If an image, it will view in sxiv,
-# if a video or gif, it will view in mpv
-# if a music file or pdf, it will download,
-# otherwise it opens link in browser.
-
-if [ -z "$1" ]; then
-	url="$(xclip -o)"
+OS="$(uname)"
+if [ "$OS" = "Darwin" ]; then
+    # macOS
+    PASTE="pbpaste"
+    OPENER="open"
+    DETACH="" 
+elif [ -n "$WAYLAND_DISPLAY" ]; then
+    # Wayland
+    PASTE="wl-paste"
+    OPENER="xdg-open"
+    DETACH="setsid -f"
+elif [ -n "$DISPLAY" ]; then
+    # X11
+    PASTE="xclip -o -selection clipboard"
+    OPENER="xdg-open"
+    DETACH="setsid -f"
 else
-	url="$1"
+    # Fallback/TTY
+    PASTE="cat"
+    OPENER="echo"
+    DETACH=""
 fi
 
-case "$url" in
-	*mkv|*webm|*mp4|*youtube.com/watch*|*youtube.com/playlist*|*youtube.com/shorts*|*youtu.be*|*hooktube.com*|*bitchute.com*|*videos.lukesmith.xyz*|*odysee.com*)
-		setsid -f mpv -quiet "$url" >/dev/null 2>&1 ;;
-	*png|*jpg|*jpe|*jpeg|*gif|*webp)
-		curl -sL "$url" > "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && nsxiv -a "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 & ;;
-	*pdf|*cbz|*cbr)
-		curl -sL "$url" > "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")" && zathura "/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")"  >/dev/null 2>&1 & ;;
-	*mp3|*flac|*opus|*mp3?source*)
-		qndl "$url" 'curl -LO'  >/dev/null 2>&1 ;;
-	*)
-		[ -f "$url" ] && setsid -f "$TERMINAL" -e "$EDITOR" "$url" >/dev/null 2>&1 || setsid -f "$BROWSER" "$url" >/dev/null 2>&1
-esac
+if [ -z "$1" ]; then
+    url="$($PASTE)"
+else
+    url="$1"
+fi
 
+[ -z "$url" ] && exit 1
+
+case "$url" in
+    *mkv|*webm|*mp4|*youtube.com/watch*|*youtube.com/playlist*|*youtube.com/shorts*|*youtu.be*|*hooktube.com*|*bitchute.com*|*odysee.com*)
+        $DETACH mpv --quiet "$url" >/dev/null 2>&1 & ;;
+    
+    *png|*jpg|*jpe|*jpeg|*gif|*webp|*pdf|*cbz|*cbr)
+        tmp_file="/tmp/$(echo "$url" | sed "s/.*\///;s/%20/ /g")"
+        curl -sL "$url" > "$tmp_file" && $OPENER "$tmp_file" >/dev/null 2>&1 & ;;
+    
+    *mp3|*flac|*opus|*mp3?source*)
+        qndl "$url" 'curl -LO' >/dev/null 2>&1 & ;;
+    
+    *)
+        if [ -f "$url" ]; then
+            # If it's a local file, open in editor or default app
+            if [ "$OS" = "Darwin" ]; then open -t "$url"; else $DETACH "$TERMINAL" -e "$EDITOR" "$url"; fi
+        else
+            # Default browser/handler
+            $OPENER "$url" >/dev/null 2>&1 &
+        fi
+        ;;
+esac

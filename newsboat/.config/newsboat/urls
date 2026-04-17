@@ -1,11 +1,34 @@
 "query:---Unread---:unread = \"yes\"" meta
 "query:News:tags # \"news\"" meta
 "query:YouTube:tags # \"yt\"" meta
+"query:Podcasts:tags # \"pod\"" meta
+"query:Blogs:tags # \"blog\"" meta
 
+---BLOG---
+https://lukesmith.xyz/rss "~Luke Smith" blog
+#https://denshi.org/blog/index.xml "~Denshi" blog
+https://sethforprivacy.com/index.xml "~Seth For Privacy" blog
 
----News---
-https://news.ycombinator.com/rss news
+---NEWS---
+https://www.therage.co/rss/ monero news
+https://www.scmp.com/rss/91/feed/
+#https://news.ycombinator.com/rss news
+#https://www.cgtn.com/subscribe/rss/section/china.xml
+#https://www.cgtn.com/subscribe/rss/section/world.xml
+https://old.reddit.com/r/Sino/.rss "~r/Sino" news
 
----YT---
-https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA yt
+#---TIMEWASTERS---
+#https://old.reddit.com/r/MoreTankieDeprogram/.rss
 
+---YOUTUBE---
+https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA yt linux
+https://www.youtube.com/feeds/videos.xml?channel_id=UCngn7SVujlvskHRvRKc1cTw yt linux
+https://www.youtube.com/feeds/videos.xml?channel_id=UCiOpJdeI87TBu8FJNgRdUVA yt monero
+https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA yt linux
+https://www.youtube.com/feeds/videos.xml?channel_id=UCn1P2pBjXNz2QL-Y9MuhXlg yt monero
+
+---BTCXMR---
+https://www.antimoonboy.com/index.xml pod monero
+https://monero.observer/feed-stories-mini.xml news monero
+https://old.reddit.com/r/monero/.rss "~r/Monero" monero
+https://old.reddit.com/r/bitcoin+bitcoinaus/.rss "~r/Bitcoin" bitcoin

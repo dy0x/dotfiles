@@ -1,5 +1,6 @@
 #show-read-feeds no
-auto-reload no
+auto-reload yes
+cleanup-on-quit yes
 
 external-url-viewer "urlscan -dc -r '/$HOME/.local/bin/linkhandler {}'"
 
@@ -14,6 +15,7 @@ bind-key g home
 bind-key d pagedown
 bind-key u pageup
 bind-key l open
+bind-key l open-in-browser article
 bind-key h quit
 bind-key a toggle-article-read
 bind-key n next-unread
@@ -21,6 +23,14 @@ bind-key N prev-unread
 bind-key D pb-download
 bind-key U show-urls
 bind-key x pb-delete
+
+# color background  default default
+# color listnormal default default
+# color listfocus black yellow standout dim
+# color listnormal_unread default default bold
+# color listfocus_unread black yellow underline
+# color info default red
+# color article default default
 
 color listnormal cyan default
 color listfocus black yellow standout bold
@@ -30,18 +40,15 @@ color info red black bold
 color article cyan default
 
 browser linkhandler
-#browser qutebrowser
 macro , open-in-browser
 macro t set browser "tsp youtube-dl --add-metadata -ic"; open-in-browser ; set browser linkhandler
 macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best"; open-in-browser ; set browser linkhandler
-macro v set browser "setsid nohup mpv"; open-in-browser ; set browser linkhandler
+macro v set browser "mpv"; open-in-browser ; set browser linkhandler
 macro w set browser "w3m"; open-in-browser ; set browser linkhandler
 macro p set browser "dmenuhandler"; open-in-browser ; set browser linkhandler
-macro c set browser "xsel -b <<<" ; open-in-browser ; set browser linkhandler
 
 #ignore-mode "download"
-ignore-mode "display"
-ignore-article "https://nitter.ca/izone_bot/rss" "title =~ \"本田仁美|이채연|채리채소\""
+# ignore-mode "display"
 
 highlight all "---.*---" yellow
 highlight feedlist ".*(0/0))" black
