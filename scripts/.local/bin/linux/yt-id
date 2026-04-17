@@ -1,22 +1,28 @@
-#!/bin/env bash
+#!/bin/sh
+
+# YouTube RSS Base URL
 BASEURL="https://www.youtube.com/feeds/videos.xml?channel_id="
 
-# Invidious Instances
-# baseurl="https://vid.puffyan.us/feed/channel/"
-#BASEURL="https://yewtu.be/feed/channel/"
-# BASEURL="https://invidious.snopyta.org/feed/channel/"
-# BASEURL="https://invidious.kavin.rocks/feed/channel/"
-# BASEURL="https://inv.riverside.rocks/feed/channel/"
+if [ -z "$1" ]; then
+    printf "Usage: %s https://support.microsoft.com/en-us/topic/what-is-my-user-id-and-why-do-i-need-it-e456eb4c-9cb9-4aa0-9d0a-923b8c53228d\n" "$0"
+    exit 1
+fi
 
-[ -z "$1" ]  && printf "Usage: %s [options] -u [URL | Username]\n" "$0" && exit 1
+INPUT="$1"
 
-URL=$1
-curl -Ls "$URL" > /dev/null || URL="https://www.youtube.com/$URL"
+# Standardizing URL inputs
+case "$INPUT" in
+    "http"*) URL="$INPUT" ;;
+    "@"*)    URL="https://www.youtube.com/$INPUT" ;;
+    *)       URL="https://www.youtube.com/@$INPUT" ;;
+esac
 
-# Actually getting the ID
-read -r ID < <(curl -Ls "$URL" | grep -o -P '.{0,0}channel_id.{0,25}' | sed '$!d' | cut -c 12-35)
-[ -z "$ID" ] && printf "Channel not found.\n" && exit 1
+ID=$(curl -Ls "$URL" | rg --no-config -o '"externalId":"(UC[a-zA-Z0-9_-]{22})"' -r '$1' | head -n 1)
 
-# Prints out the credentials
-printf "ID:\t%s\n" "$ID"
-printf "RSS:\t%s\n" "$BASEURL$ID"
+if [ -z "$ID" ]; then
+    printf "Error: Could not extract Channel ID.\n"
+    exit 1
+fi
+
+printf "ID:  %s\n" "$ID"
+printf "RSS: %s%s\n" "$BASEURL" "$ID"
