@@ -1,4 +1,3 @@
-
 IS_MAC=false
 IS_LINUX=false
 
@@ -75,17 +74,6 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-# Use ranger to switch directories and bind it to ctrl-o
-# rangercd () {
-#     tmp="$(mktemp)"
-#     ranger --choosedir="$tmp" "$@"
-#     if [ -f "$tmp" ]; then
-#         dir="$(cat "$tmp")"
-#         rm -f "$tmp" >/dev/null
-#     	[ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-#     fi
-# }
-
 lfcd () {
     tmp="$(mktemp)"
     lf -last-dir-path="$tmp" "$@"
@@ -96,7 +84,6 @@ lfcd () {
     fi
 }
 
-# bindkey -s '^o' 'rangercd\n'
 bindkey -s '^o' 'lfcd\n'
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 
@@ -114,8 +101,5 @@ bindkey -M visual '^[[P' vi-delete
 
 [ -f "$HOME/.config/.aliasrc" ] && source "$HOME/.config/.aliasrc"
 eval "$(starship init zsh)"
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=($HOME/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
-# End of Docker CLI completions

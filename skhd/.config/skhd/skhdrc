@@ -32,6 +32,7 @@ alt + shift - t         : komorebic toggle-workspace-float-override
 alt + shift - f         : komorebic toggle-monocle
 
 # Window manager options
+alt - b                 : komorebic toggle-bar
 alt + shift - r         : komorebic retile
 alt - p                 : komorebic toggle-pause
 alt - 0                 : komorebic toggle-window-container-behaviour
