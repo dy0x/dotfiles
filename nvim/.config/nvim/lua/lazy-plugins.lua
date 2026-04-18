@@ -7,7 +7,7 @@ require('lazy').setup {
   require 'plugins/copilot',
   -- require 'plugins/debug',
   require 'plugins/gitsigns',
-  require 'plugins/gruvbox',
+  -- require 'plugins/gruvbox',
   -- require 'plugins/indent_line',
   require 'plugins/lazydev',
   require 'plugins/lint',

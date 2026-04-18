@@ -15,7 +15,8 @@ if $IS_MAC; then
       *) export PATH="$PNPM_HOME:$PATH" ;;
   esac
 elif $IS_LINUX; then
-  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+  # (cat ~/.cache/wal/sequences &)
 fi
 
 autoload -U colors && colors

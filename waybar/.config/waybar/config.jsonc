@@ -1,16 +1,16 @@
 {
-	"reload_style_on_change": true,
+    "reload_style_on_change": true,
     "position": "top",
     "height": 32,
     "modules-left": ["hyprland/workspaces"],
-    "modules-right": ["pulseaudio", "cpu", "memory","network", "clock" ,"tray"],
+    "modules-right": ["pulseaudio", "clock" ,"tray"],
     "tray": {
         "spacing": 10
     },
     "clock": {
     	"interval": 1,
     	"timezone": "Australia/Sydney",
-    	"format": " {:%a %d %b   %I:%M %p}",
+    	"format": " {:%A %d %B   %H:%M}",
     	"tooltip": false
     },
     "cpu": {
@@ -33,19 +33,20 @@
         "format-icons": ["", "", "", "", ""]
     },
     "network": {
-        "format-wifi": " Wired ",
+        "format-wifi": "  {signalStrength}%",
         "format-ethernet": " Wired ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": " Unwired",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
-        "format": "{volume}%  / {format_source}",
+        // "format": "{volume}%  / {format_source}",
+        "format": "{volume}%  ",
         "format-bluetooth": "{volume}%    {format_source}",
         "format-bluetooth-muted": " {format_source}",
         "format-muted": " {format_source}",
         "format-source": "{volume}% ",
         "format-source-muted": "",
-        "on-click": "pulsemixer"
+        "on-click": "foot pulsemixer"
     }
 }
