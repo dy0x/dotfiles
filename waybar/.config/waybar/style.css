@@ -1,6 +1,5 @@
 @import "colors-waybar.css";
 
-/* 🔹 Global Waybar Settings */
 * {
     font-family: "Fira Code";
     font-weight: bolder;
@@ -9,7 +8,6 @@
     border: none;
 }
 
-/* 🔹 Waybar Background */
 window#waybar {
     background: @background;
     color: @foreground;
@@ -17,7 +15,6 @@ window#waybar {
     padding: 2px;
 }
 
-/* 🟢 Modules (Minimal Padding, Small Size) */
 #workspaces,
 #pulseaudio,
 #cpu,
@@ -40,7 +37,7 @@ window#waybar {
 #memory:hover,
 #network:hover,
 #clock:hover,
-#tray:hover {
+tray:hover {
     background: @color3;
     color: @background;
     box-shadow: 0px 0px 4px @color3;

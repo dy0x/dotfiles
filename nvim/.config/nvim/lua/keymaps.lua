@@ -1,4 +1,3 @@
-
 -- [[ Basic Keymaps ]]
 
 -- Clear highlights on search when pressing <Esc> in normal mode
@@ -40,3 +39,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.hl.on_yank()
   end,
 })
+
