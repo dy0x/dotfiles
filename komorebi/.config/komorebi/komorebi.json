@@ -2,12 +2,14 @@
   "$schema": "https://komorebi-for-mac.lgug2z.com/komorebi.0.1.0.schema.json",
   "app_specific_configuration_path": "$HOME/.config/komorebi/applications.json",
   "cross_monitor_move_behaviour": "Insert",
-  "default_workspace_padding": 10,
-  "default_container_padding": 10,
+  //"default_workspace_padding": 8,
+  //"default_container_padding": 8,
+  "default_workspace_padding": 4,
+  "default_container_padding": 4,
   "border": true,
-  "border_width": 3,
+  "border_width": 0,
   "border_offset": -3,
-  "border_radius": 20,
+  "border_radius": 0,
   "floating_window_aspect_ratio": "Widescreen",
   "floating_layer_behaviour": "Float",
   "resize_delta": 100,
@@ -16,10 +18,11 @@
   "manage_rules": [],
   "monitors": [
     {
-      "wallpaper": {
-        "path": "/Users/USERNAME/Pictures/Wallpaper/desktop-crop.jpg",
-        "generate_theme": false
-      },
+      //"wallpaper": {
+        //"path": "/Users/USERNAME/Pictures/Wallpaper/desktop-crop.jpg",
+        //"path": "~/Downloads/anastassia-anufrieva-4GDISTbaHsE-unsplash.jpg",
+       // "generate_theme": false
+      //},
       "workspaces": [
         {
           "name": "1",

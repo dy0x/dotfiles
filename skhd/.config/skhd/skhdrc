@@ -30,9 +30,10 @@ alt + shift - 0x29      : komorebic toggle-workspace-layer # 0x29 is ;
 alt - t                 : komorebic toggle-float
 alt + shift - t         : komorebic toggle-workspace-float-override
 alt + shift - f         : komorebic toggle-monocle
+alt - f                 : osascript -e 'tell application "System Events" to keystroke "f" using {control down, command down}'
 
 # Window manager options
-alt - b                 : komorebic toggle-bar
+# alt - b                 : komorebic toggle-bar
 alt + shift - r         : komorebic retile
 alt - p                 : komorebic toggle-pause
 alt - 0                 : komorebic toggle-window-container-behaviour
@@ -65,9 +66,12 @@ alt + shift - 8         : komorebic send-to-workspace 7
 alt + shift - 9         : komorebic send-to-workspace 8
 
 # Launch Programs
+alt - backspace         : /bin/zsh -c 'komorebic stop --bar; komorebic start --bar'
 alt - return            : open -na ghostty
 alt - w                 : open -na "Brave Browser.app" --args --profile-directory="Profile 1"
 alt - e                 : open -a finder
 alt - c                 : open -a "Brave Browser.app" --args --profile-directory="Default"
 alt - n                 : ghostty -e "newsboat"
 alt - m                 : open -a mail
+
+
