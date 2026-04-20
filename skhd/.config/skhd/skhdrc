@@ -31,9 +31,11 @@ alt + shift - t         : komorebic toggle-workspace-float-override
 alt - f                 : komorebic toggle-monocle
 alt + shift - f         : osascript -e 'tell application "System Events" to keystroke "f" using {control down, command down}'
 
-# Window manager options
 alt - b                 : pgrep -x "komorebi-bar" && killall "komorebi-bar" && komorebic monitor-work-area-offset 0 0 0 0 0 || komorebi-bar &
-alt + shift - r         : komorebic retile
+alt - r : komorebic change-layout vertical-stack
+alt + shift - r : komorebic change-layout columns
+alt + ctrl - r         : komorebic retile
+
 alt - p                 : komorebic toggle-pause
 alt - 0                 : komorebic toggle-window-container-behaviour
 
