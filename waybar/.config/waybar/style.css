@@ -31,7 +31,7 @@ window#waybar {
 }
 
 /* 🔹 Hover Effect */
-#workspaces:hover,
+/* #workspaces:hover, */
 #pulseaudio:hover,
 #cpu:hover,
 #memory:hover,
