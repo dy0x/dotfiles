@@ -1,35 +1,37 @@
 #!/bin/bash
 #command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
 
-# Terminal Commands
+# visual
 alias ls="ls -h --color=auto"
 alias l="ls -CF"
 alias la="ls -a"
 alias ll="ls -la"
 alias grep="grep --color=auto"
 alias diff="diff --color=auto"
+alias ffmpeg="ffmpeg -hide_banner"
 
-# Verbose
+# verbose
 alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="rm -iv"
 alias mkd="mkdir -pv"
-alias yt="yt-dlp --add-metadata -i"
-alias yta="yt -x -f bestaudio/best"
-alias ffmpeg="ffmpeg -hide_banner"
 
-# ETC
-alias bib="nvim /$HOME/docs/University/uni.bib"
-alias v="nvim"
+# system
+alias vim="nvim"
 alias acfg="nvim $HOME/.config/.aliasrc"
 alias zshcfg="nvim $HOME/.zshrc"
-alias gs="git status"
-alias f="ranger"
-alias dots="/usr/bin/git --git-dir=$HOME/Source/dotfiles/ --work-tree=$HOME"
-alias monerod="monerod --data-dir $XDG_DATA_HOME/bitmonero"
+alias dots="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+alias hyprdots="nvim $HOME/.config/hypr/hyprland.conf"
+alias yay="paru"
+# alias backupwindows='rsync -rt --delete "$HOME/windocs/.config" "$HOME/.dotfiles/windows/"'
 
-# Directories
+# tools
+alias yt="yt-dlp --add-metadata -i"
+alias yta="yt -x -f bestaudio/best"
+alias monerod="monerod --data-dir $XDG_DATA_HOME/bitmonero"
+# alias bib="nvim /$HOME/docs/University/uni.bib"
+
+# navigation
 alias scripts="cd ~/.local/bin/"
-alias conf="cd ~/.config"
-alias lcode="cd /mnt/c/Users/USERNAME/Local\ Documents/Code/"
-alias backupwindows='rsync -rt --delete "$HOME/windocs/.config" "$HOME/.dotfiles/windows/"'
+# alias conf="cd ~/.config"
+# alias lcode="cd /mnt/c/Users/USERNAME/Local\ Documents/Code/"
