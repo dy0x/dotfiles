@@ -10,10 +10,10 @@ https://lukesmith.xyz/rss "~Luke Smith" blog
 https://sethforprivacy.com/index.xml "~Seth For Privacy" blog monero bitcoin
 https://api.substack.com/feed/podcast/8395567.rss "~Sylvan Franklin" blog tech
 https://blog.notafbihoneypot.com/rss/ "~NotAFBIHoneyPot" blog privacy monero
-https://www.getmonero.org/feed.xml "~Monero" blog monero
-https://digdeeper.club/atom.xml "~DigDeeper" tech blog privacy
+#https://www.getmonero.org/feed.xml "~Monero" blog monero
+#https://digdeeper.club/atom.xml "~DigDeeper" tech blog privacy
 https://www.orthodoxtao.org/feed "~Orthodox Tao"
-https://porfiriy.substack.com/feed
+#https://porfiriy.substack.com/feed
 
 ---NEWS---
 https://www.therage.co/rss/ monero news
