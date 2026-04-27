@@ -24,5 +24,10 @@ if [ -z "$ID" ]; then
     exit 1
 fi
 
+RSS_URL="${BASEURL}${ID}"
+
 printf "ID:  %s\n" "$ID"
-printf "RSS: %s%s\n" "$BASEURL" "$ID"
+# printf "RSS: %s%s\n" "$BASEURL" "$ID"
+printf "RSS: %s\n" "$RSS_URL"
+printf "%s" "$RSS_URL" | wl-copy
+printf "\nRSS URL has been copied to the clipboard.\n"
