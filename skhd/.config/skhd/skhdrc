@@ -67,7 +67,8 @@ alt + shift - 8         : komorebic send-to-workspace 7
 alt + shift - 9         : komorebic send-to-workspace 8
 
 # Launch Programs
-alt - backspace         : /bin/zsh -c 'komorebic stop --bar; komorebic start --bar'
+# alt - backspace         : /bin/zsh -c 'komorebic stop --bar; komorebic start --bar'
+alt - backspace         : /bin/zsh -c 'komorebic stop; komorebic start'
 alt - return            : /Applications/Ghostty.app/Contents/MacOS/ghostty &
 alt - w                 : open -na "Brave Browser.app" --args --profile-directory="Profile 1"
 alt + shift - w         : open -a "Brave Browser.app" --args --profile-directory="Default"

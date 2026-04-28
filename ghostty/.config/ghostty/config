@@ -4,7 +4,6 @@ shell-integration = zsh
 theme = "Gruvbox Dark Hard"
 macos-option-as-alt = true
 background-opacity = 0.95
-macos-titlebar-style = hidden
 quit-after-last-window-closed = true
 window-padding-y = 10,0
 
