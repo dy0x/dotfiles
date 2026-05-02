@@ -199,6 +199,24 @@
       }
     ]
   },
+  "Mullvad VPN": {
+    "ignore": [
+      {
+        "kind": "Exe",
+        "id": "Mullvad VPN",
+        "matching_strategy": "Equals"
+      }
+    ]
+  },
+  "SystemUIServer": {
+    "ignore": [
+      {
+        "kind": "Exe",
+        "id": "SystemUIServer",
+        "matching_strategy": "Equals"
+      }
+    ]
+  },
   "Tailscale": {
     "ignore": [
       [

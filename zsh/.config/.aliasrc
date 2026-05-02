@@ -26,10 +26,13 @@ alias yay="paru"
 # alias backupwindows='rsync -rt --delete "$HOME/windocs/.config" "$HOME/.dotfiles/windows/"'
 
 # tools
+#yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config
 alias yt="yt-dlp --add-metadata -i"
 alias yta="yt -x -f bestaudio/best"
 alias monerod="monerod --data-dir $XDG_DATA_HOME/bitmonero"
 # alias bib="nvim /$HOME/docs/University/uni.bib"
+alias newsboat='LANGUAGE=en LC_ALL=en_US.UTF-8 newsboat'
+alias mpva="mpv --no-audio-display"
 
 # navigation
 alias scripts="cd ~/.local/bin/"

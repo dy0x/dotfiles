@@ -48,8 +48,11 @@ macro v set browser "mpv"; open-in-browser ; set browser linkhandler
 macro w set browser "w3m"; open-in-browser ; set browser linkhandler
 macro p set browser "dmenuhandler"; open-in-browser ; set browser linkhandler
 
+ignore-article "*" "title =~ \"#shorts\""
+ignore-article "*" "link =~ \"shorts\""
+
 #ignore-mode "download"
-# ignore-mode "display"
+ignore-mode "display"
 
 highlight all "---.*---" yellow
 highlight feedlist ".*(0/0))" black
