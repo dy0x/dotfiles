@@ -3,8 +3,8 @@
 "query:YouTube:tags # \"yt\"" meta
 "query:Podcasts:tags # \"podcast\"" meta
 "query:Blogs:tags # \"blog\"" meta
-
 ---BLOG---
+https://cypherascetic.com/posts/index.xml "~Cypher Ascetic"
 https://lukesmith.xyz/rss "~Luke Smith" blog
 #https://denshi.org/blog/index.xml "~Denshi" blog
 https://sethforprivacy.com/index.xml "~Seth For Privacy" blog monero bitcoin
@@ -16,27 +16,33 @@ https://www.orthodoxtao.org/feed "~Orthodox Tao"
 #https://porfiriy.substack.com/feed
 
 ---NEWS---
-https://www.therage.co/rss/ monero news
+https://www.therage.co/rss/ bitcoin monero news
 #https://www.scmp.com/rss/91/feed/
 #https://news.ycombinator.com/rss news
 https://old.reddit.com/r/Sino/.rss "~r/Sino" news
-https://monero.observer/feed-stories-mini.xml news monero
+#https://monero.observer/feed-stories-mini.xml news monero
 
 ---YOUTUBE---
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "~Luke Smith" yt linux
 https://www.youtube.com/feeds/videos.xml?channel_id=UCngn7SVujlvskHRvRKc1cTw "~Bugswriter" yt linux
 #https://www.youtube.com/feeds/videos.xml?channel_id=UC7YOGHUfC1Tb6E4pudI9STA "~Mental Outlaw" yt linux
 https://odysee.com/$/rss/@AlphaNerd:8 "~Mental Outlaw" yt linux privacy tech
-https://odysee.com/$/rss/@MoneroMatteo:b "~Monero Matteo" yt monero
 https://www.youtube.com/feeds/videos.xml?channel_id=UC-lHJZR3Gqxm24_Vd_AJ5Yw "~PewDiePie" yt slop
 https://www.youtube.com/feeds/videos.xml?channel_id=UCdBXOyqr8cDshsp7kcKDAkg "~Big A" yt slop news
 https://www.youtube.com/feeds/videos.xml?channel_id=UC1LpsuAUaKoMzzJSEt5WImw "~Asianometry" yt slop
+https://www.youtube.com/feeds/videos.xml?channel_id=UCQjBsscIa_mgEnSvWpm_9vw "~Odysseas" yt
+https://www.youtube.com/feeds/videos.xml?channel_id=UCqYPhGiB9tkShZorfgcL2lA "~What I've Learned" yt health science
+https://www.youtube.com/feeds/videos.xml?channel_id=UCcaTUtGzOiS4cqrgtcsHYWg "~jvscholz" yt slop tech
 
 ---CRYPTO---
 https://www.youtube.com/feeds/videos.xml?channel_id=UC3tE6BqE2SLnU8jHZfWWPDQ "~Joe Nakamoto" yt bitcoin slop
-https://www.youtube.com/feeds/videos.xml?channel_id=UC3Hx81QYLoEQkm3vyl4N4eQ "~Monero Talk" yt monero
+https://odysee.com/$/rss/@MoneroMatteo:b "~Monero Matteo" yt monero
+https://antimoonboy.com/podcast/dir2cast/dir2cast.php podcast monero
+#https://feeds.fireside.fm/monerotalk/rss "~Monero Talk" podcast monero
 https://www.youtube.com/feeds/videos.xml?channel_id=UCF31eojFKhWQJviyMICWO2w "~Bitcoin University" yt bitcoin slop
-https://www.youtube.com/feeds/videos.xml?channel_id=UCn1P2pBjXNz2QL-Y9MuhXlg "~Monero Matteo" yt monero
+https://www.youtube.com/feeds/videos.xml?channel_id=UCQx8FNjPZ8JO9y21K3bYg0g "~Super Testnet" yt bitcoin
+#https://old.reddit.com/r/bitcoin+bitcoinaus/.rss "~r/Bitcoin" bitcoin slop
+https://stacker.news/~bitcoin/rss "~Stacker News" bitcoin
 
 ---CHRISTIAN---
 https://www.youtube.com/feeds/videos.xml?channel_id=UC4ocopmnWmwViIHELoo1Gkg "~Harmony" yt christ 
@@ -47,12 +53,17 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UC3P5Jx2rvUKRW62hc75q8oQ "~T
 https://www.youtube.com/feeds/videos.xml?channel_id=UC3qqJta0_Yndh_ZfxiAesQg "~Anglican Aesthetics" yt christ
 https://www.youtube.com/feeds/videos.xml?channel_id=UCzZeN-hOXtiz9Q0YvVUee8A "~Matthew Everhard" yt christ
 https://www.youtube.com/feeds/videos.xml?channel_id=UCrI5U0R293u9uveijefKyAA "~Ryan Reeves" yt christ
+https://www.youtube.com/feeds/videos.xml?channel_id=UCb9U5jJhbLWm1gMJzYi12uA "~AncientPathsTV" yt christ
+https://www.youtube.com/feeds/videos.xml?channel_id=UCpThSW6FESXQgkn1IG3Ob6w "~Christian Simplicity" yt christ minimalism
+https://www.youtube.com/feeds/videos.xml?channel_id=UCfQKDYGkX3nZ7Q9cAc-4rdg "~Gospel Simplicity" yt christ
+https://www.youtube.com/feeds/videos.xml?channel_id=UCXIwkwIdIs_ClS5EdboB1ww "~John Miles" yt christ
+https://www.youtube.com/feeds/videos.xml?channel_id=UCiLqiXa5O85APUBQV7X5w9Q "~Redeemed Zoomer" yt christ slop
+https://www.youtube.com/feeds/videos.xml?channel_id=UCiUo6zNpwEWF2jx0G6-aGGg "~Rev. Don Baker" yt christ
+https://protestia.com/feed/ "~Protestia" christ news
 
 
----PODCASTS---
-https://www.antimoonboy.com/index.xml podcast monero
+#---PODCASTS---
 
 #https://old.reddit.com/r/monero/.rss "~r/Monero" monero
-#https://old.reddit.com/r/bitcoin+bitcoinaus/.rss "~r/Bitcoin" bitcoin
 
 #---中文---

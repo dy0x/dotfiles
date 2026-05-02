@@ -1,43 +1,65 @@
 #!/bin/sh
-# File preview handler for lf using sixel via chafa
+# File preview handler for lf
 
 set -C -f
 IFS="$(printf '%b_' '\n')"; IFS="${IFS%_}"
 
-# Preview image using chafa+sixel
-image() {
-    if command -v chafa >/dev/null 2>&1; then
-        chafa -f sixel -s "$2x$3" --animate off --polite on "$1"
+resolve_path() {
+    readlink -f "$1" 2>/dev/null || realpath "$1" 2>/dev/null || printf '%s' "$1"
+}
+
+sha256_hash() {
+    if command -v sha256sum >/dev/null 2>&1; then
+        sha256sum | cut -d' ' -f1
     else
-        echo "chafa not found" >&2
+        shasum -a 256 | cut -d' ' -f1
     fi
 }
 
-CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/lf"
+file_stat() {
+    stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' "$1" 2>/dev/null || \
+    stat -f '%N%i%HT%z%B%m' "$1"
+}
 
-case "$(file --dereference --brief --mime-type -- "$1")" in
+# Previewer args: $1=file $2=width $3=height $4=x $5=y
+image() {
+    case "${TERM_PROGRAM:-}" in
+        ghostty|kitty)
+            kitten icat --stdin no --transfer-mode memory \
+                --place "${2}x${3}@${4}x${5}" "$1" </dev/null >/dev/tty
+            ;;
+        *)
+            chafa -f sixel -s "${2}x${3}" --animate off --polite on "$1"
+            ;;
+    esac
+}
+
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/lf"
+mkdir -p "$CACHE_DIR"
+
+case "$(file -Lb --mime-type -- "$1")" in
     image/avif)
-        CACHE="$CACHE_DIR/thumb.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' "$(readlink -f "$1")" | sha256sum | cut -d' ' -f1).jpg"
+        CACHE="$CACHE_DIR/thumb.$(file_stat "$(resolve_path "$1")" | sha256_hash).jpg"
         [ ! -f "$CACHE" ] && magick "$1" "$CACHE"
-        image "$CACHE" "$2" "$3"
+        image "$CACHE" "$2" "$3" "$4" "$5"
         ;;
     image/vnd.djvu)
-        CACHE="$CACHE_DIR/thumb.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' "$(readlink -f "$1")" | sha256sum | cut -d' ' -f1).jpg"
+        CACHE="$CACHE_DIR/thumb.$(file_stat "$(resolve_path "$1")" | sha256_hash).jpg"
         [ ! -f "$CACHE" ] && djvused "$1" -e 'select 1; save-page-with /dev/stdout' | magick -density 200 - "$CACHE"
-        image "$CACHE" "$2" "$3"
+        image "$CACHE" "$2" "$3" "$4" "$5"
         ;;
     image/svg+xml)
-        CACHE="$CACHE_DIR/thumb.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' "$(readlink -f "$1")" | sha256sum | cut -d' ' -f1).png"
+        CACHE="$CACHE_DIR/thumb.$(file_stat "$(resolve_path "$1")" | sha256_hash).png"
         [ ! -f "$CACHE" ] && inkscape --export-type=png --export-filename="$CACHE" "$1"
-        image "$CACHE" "$2" "$3"
+        image "$CACHE" "$2" "$3" "$4" "$5"
         ;;
     image/x-xcf)
-        CACHE="$CACHE_DIR/thumb.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' "$(readlink -f "$1")" | sha256sum | cut -d' ' -f1).jpg"
+        CACHE="$CACHE_DIR/thumb.$(file_stat "$(resolve_path "$1")" | sha256_hash).jpg"
         [ ! -f "$CACHE" ] && magick "$1[0]" "$CACHE"
-        image "$CACHE" "$2" "$3"
+        image "$CACHE" "$2" "$3" "$4" "$5"
         ;;
     image/*)
-        image "$1" "$2" "$3"
+        image "$1" "$2" "$3" "$4" "$5"
         ;;
     text/html)
         lynx -width="$2" -display_charset=utf-8 -dump "$1"
@@ -52,19 +74,19 @@ case "$(file --dereference --brief --mime-type -- "$1")" in
         mediainfo "$1"
         ;;
     video/*)
-        CACHE="$CACHE_DIR/thumb.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' "$(readlink -f "$1")" | sha256sum | cut -d' ' -f1).jpg"
+        CACHE="$CACHE_DIR/thumb.$(file_stat "$(resolve_path "$1")" | sha256_hash).jpg"
         [ ! -f "$CACHE" ] && ffmpegthumbnailer -i "$1" -o "$CACHE" -s 0
-        image "$CACHE" "$2" "$3"
+        image "$CACHE" "$2" "$3" "$4" "$5"
         ;;
     */pdf)
-        CACHE="$CACHE_DIR/thumb.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' "$(readlink -f "$1")" | sha256sum | cut -d' ' -f1).jpg"
+        CACHE="$CACHE_DIR/thumb.$(file_stat "$(resolve_path "$1")" | sha256_hash).jpg"
         [ ! -f "$CACHE" ] && pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
-        image "$CACHE.jpg" "$2" "$3"
+        image "$CACHE.jpg" "$2" "$3" "$4" "$5"
         ;;
     */epub+zip|*/mobi*)
-        CACHE="$CACHE_DIR/thumb.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' "$(readlink -f "$1")" | sha256sum | cut -d' ' -f1).jpg"
+        CACHE="$CACHE_DIR/thumb.$(file_stat "$(resolve_path "$1")" | sha256_hash).jpg"
         [ ! -f "$CACHE" ] && gnome-epub-thumbnailer "$1" "$CACHE"
-        image "$CACHE" "$2" "$3"
+        image "$CACHE" "$2" "$3" "$4" "$5"
         ;;
     application/*zip)
         atool --list -- "$1"

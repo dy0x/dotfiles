@@ -70,9 +70,11 @@ alt + shift - 9         : komorebic send-to-workspace 8
 # alt - backspace         : /bin/zsh -c 'komorebic stop --bar; komorebic start --bar'
 alt - backspace         : /bin/zsh -c 'komorebic stop; komorebic start'
 alt - return            : /Applications/Ghostty.app/Contents/MacOS/ghostty &
-alt - w                 : open -na "Brave Browser.app" --args --profile-directory="Profile 1"
+# alt - w                 : open -na "Brave Browser.app" --args --profile-directory="Profile 1"
+alt - w                 : open -na "Helium.app"
 alt + shift - w         : open -a "Brave Browser.app" --args --profile-directory="Default"
 alt - e                 : open -a finder
+# alt - n                 : ghostty -e "LANGUAGE=en LC_ALL=en_US.UTF-8 newsboat"
 alt - n                 : ghostty -e "newsboat"
 alt - m                 : open -a mail
 
