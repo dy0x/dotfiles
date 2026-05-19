@@ -12,7 +12,19 @@ set drawbox true
 
 # cmds/functions
 cmd open ${{
-    case $(file --mime-type "$(readlink -f $f)" -b) in
+    export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+    _os="$(uname)"
+    _mime="$(file --mime-type "$f" -b)"
+
+    if [ "$_os" = "Darwin" ]; then
+        case "$_mime" in
+            text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $fx ;;
+            audio/*|video/*) mpv $fx >/dev/null 2>&1 & ;;
+            *) for _f in $fx; do open "$_f" & done ;;
+        esac
+    else
+
+    case "$_mime" in
 	application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) localc $fx ;;
 	image/vnd.djvu|application/pdf|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
         text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $fx;;
@@ -38,6 +50,8 @@ cmd open ${{
 	   	esac ;;
 	*) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
     esac
+
+    fi
 }}
 
 cmd mkdir $mkdir -p "$@"
@@ -90,7 +104,7 @@ cmd moveto ${{
 	for x in $fx; do
 		mv -iv "$x" "$destpath"
 	done &&
-	notify-send "🚚 File(s) moved." "File(s) moved to $destpath."
+	{ [ "$(uname)" = "Darwin" ] && osascript -e "display notification "File(s) moved to $destpath." with title "File(s) moved."" || notify-send "File(s) moved." "File(s) moved to $destpath."; }
 }}
 
 cmd copyto ${{
@@ -108,7 +122,7 @@ cmd copyto ${{
 	for x in $fx; do
 		cp -ivr "$x" "$destpath"
 	done &&
-	notify-send "📋 File(s) copied." "File(s) copied to $destpath."
+	{ [ "$(uname)" = "Darwin" ] && osascript -e "display notification "File(s) copied to $destpath." with title "File(s) copied."" || notify-send "File(s) copied." "File(s) copied to $destpath."; }
 }}
 
 cmd setbg "$1"
@@ -167,10 +181,10 @@ map V push :!nvim<space>
 
 map W $setsid -f $TERMINAL >/dev/null 2>&1
 
-map U $printf "%s" "$fx" | xclip -selection clipboard
-map u $printf "%s" "$fx" | sed 's/.*\///' | xclip -selection clipboard
-map . $printf "%s" "$fx" | sed -E 's/^.+\[/https:\/\/www.youtube.com\/watch?v=/' | sed -E 's/\]\..+//' | xclip -selection clipboard
-map <gt> $printf "%s" "$fx" | sed -E 's/^.+\[/https:\/\/piped.video\/watch?v=/' | sed -E 's/\]\..+//' | xclip -selection clipboard
+map U ${{ [ "$(uname)" = "Darwin" ] && _clip="pbcopy" || _clip="xclip -selection clipboard"; printf "%s" "$fx" | $_clip; }}
+map u ${{ [ "$(uname)" = "Darwin" ] && _clip="pbcopy" || _clip="xclip -selection clipboard"; printf "%s" "$fx" | sed 's/.*\///' | $_clip; }}
+map . ${{ [ "$(uname)" = "Darwin" ] && _clip="pbcopy" || _clip="xclip -selection clipboard"; printf "%s" "$fx" | sed -E 's/^.+\[/https:\/\/www.youtube.com\/watch?v=/' | sed -E 's/\]\..+//' | $_clip; }}
+map <gt> ${{ [ "$(uname)" = "Darwin" ] && _clip="pbcopy" || _clip="xclip -selection clipboard"; printf "%s" "$fx" | sed -E 's/^.+\[/https:\/\/piped.video\/watch?v=/' | sed -E 's/\]\..+//' | $_clip; }}
 map T $imv -t "$(pwd)" # opens thumbnail mode
 map <c-l> unselect
 

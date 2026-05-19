@@ -1,3 +1,8 @@
+urls-source "freshrss"
+freshrss-url "http://192.168.0.15/api/greader.php"
+freshrss-login "dylan"
+freshrss-passwordeval "cat ~/.dotfiles/newsboat/.config/newsboat/.freshrss_pass"
+
 #show-read-feeds no
 auto-reload yes
 cleanup-on-quit yes

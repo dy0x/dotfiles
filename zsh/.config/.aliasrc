@@ -36,5 +36,6 @@ alias mpva="mpv --no-audio-display"
 
 # navigation
 alias scripts="cd ~/.local/bin/"
+alias sshracknerd="ssh root@23.94.122.42"
 # alias conf="cd ~/.config"
 # alias lcode="cd /mnt/c/Users/USERNAME/Local\ Documents/Code/"
