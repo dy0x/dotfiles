@@ -3,3 +3,5 @@
 **/yasb.log*
 karabiner/.config/karabiner/automatic_backups/
 scripts/.local/bin/claude
+newsboat/.config/newsboat/.freshrss_pass
+.claude
