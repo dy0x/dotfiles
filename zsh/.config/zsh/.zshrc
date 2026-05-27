@@ -85,7 +85,16 @@ lfcd () {
     fi
 }
 
-bindkey -s '^o' 'lfcd\n'
+y() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    command yazi "$@" --cwd-file="$tmp"
+    IFS= read -r -d '' cwd < "$tmp"
+    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+    rm -f -- "$tmp"
+}
+
+# bindkey -s '^o' 'lfcd\n'
+bindkey -s '^o' 'y\n'
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 
 # fix systemctl auto complete in zsh.
