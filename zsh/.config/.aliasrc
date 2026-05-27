@@ -36,6 +36,7 @@ alias mpva="mpv --no-audio-display"
 
 # navigation
 alias scripts="cd ~/.local/bin/"
-alias sshracknerd="ssh root@23.94.122.42"
+alias sshvps="ssh root@23.94.122.42"
+alias rsyncvps="rsync -avz root@23.94.122.42:/opt/directhash ~/source/backup-directhash"
 # alias conf="cd ~/.config"
 # alias lcode="cd /mnt/c/Users/USERNAME/Local\ Documents/Code/"

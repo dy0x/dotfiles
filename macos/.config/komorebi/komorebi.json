@@ -15,7 +15,13 @@
   "resize_delta": 100,
   "ignore_rules": [],
   "floating_applications": [],
-  "manage_rules": [],
+  "manage_rules": [
+      {
+        "kind": "Exe",
+        "id": "IINA",
+        "matching_strategy": "Equals"
+    }
+    ],
   "monitors": [
     {
       //"wallpaper": {
@@ -30,12 +36,12 @@
           "layout_options": {
             "column_ratios": [0.55,0.5]
           },
-          "initial_workspace_rules": [
-//            {
-//              "kind": "Exe",
-//              "id": "Zen",
-//              "matching_strategy": "Equals"
-//            }
+          "workspace_rules": [
+            {
+              "kind": "Exe",
+              "id": "Ghostty",
+              "matching_strategy": "Equals"
+            }
           ]
         },
         {
@@ -43,7 +49,14 @@
           "layout": "VerticalStack",
           "layout_options": {
             "column_ratios": [0.55,0.5]
-          }
+          },
+          "workspace_rules": [
+            {
+              "kind": "Exe",
+              "id": "Brave",
+              "matching_strategy": "Equals"
+            }
+          ]
         },
         {
           "name": "3",
