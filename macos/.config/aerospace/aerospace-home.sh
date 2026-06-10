@@ -27,6 +27,9 @@ open_app() {
             bundle:*)
                 open -b "${open_spec#bundle:}"
                 ;;
+            profile:*)
+                open -na "Brave Browser.app" --args --profile-directory="${open_spec#profile:}"
+                ;;
             *)
                 open -a "$open_spec"
                 ;;

@@ -9,7 +9,20 @@ default-root-container-layout = "tiles"
 default-root-container-orientation = "auto"
 on-focused-monitor-changed = ["move-mouse monitor-lazy-center"]
 automatically-unhide-macos-hidden-apps = true
-persistent-workspaces = ["AGENT", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+persistent-workspaces = [
+  "AGENT",
+  "ANKI",
+  "BTC",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9"
+]
 
 [key-mapping]
 preset = "qwerty"
@@ -96,7 +109,8 @@ alt-shift-tab = "move-workspace-to-monitor --wrap-around next"
 alt-enter = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 1 com.mitchellh.ghostty app:Ghostty"'
 
 # 2 = Main browser
-alt-w = 'exec-and-forget /bin/bash -lc "aerospace workspace 2 && open -na \"Brave Browser.app\" --args --profile-directory=\"Profile 1\""'
+# alt-w = 'exec-and-forget /bin/bash -lc "aerospace workspace 2 && open -na \"Brave Browser.app\" --args --profile-directory=\"Profile 1\""'
+alt-w = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh 2 com.brave.Browser \"profile:Profile 1\""'
 
 # 3 = Files
 alt-e = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh 3 com.apple.finder app:Finder"'
@@ -108,14 +122,15 @@ alt-m = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.s
 alt-shift-m = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 5 com.apple.MobileSMS app:Messages"'
 
 # 6 = Chinese Immersion
-alt-shift-w = 'exec-and-forget /bin/bash -lc "aerospace workspace 6 && open -na \"Brave Browser.app\" --args --profile-directory=\"Default\""'
+# alt-shift-w = 'exec-and-forget /bin/bash -lc "aerospace workspace 6 && open -na \"Brave Browser.app\" --args --profile-directory=\"Default\""'
+alt-shift-w = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh 6 com.brave.Browser \"profile:Default\""'
 
 # 7 = Learning / reading
-alt-a = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 7 net.ankiweb.launcher app:Anki"'
+alt-a = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair ANKI net.ankiweb.launcher app:Anki"'
 alt-n = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 7 com.ranchero.NetNewsWire-Evergreen app:NetNewsWire"'
 
 # 8 = Finance
-# alt-s = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh 8 com.sparrowwallet.sparrow"'
+alt-s = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh BTC com.sparrowwallet.sparrow"'
 
 # AGENT
 alt-g = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair AGENT com.openai.codex"'
@@ -146,11 +161,15 @@ run = "move-node-to-workspace 5"
 
 [[on-window-detected]]
 if.app-id = "net.ankiweb.launcher"
-run = "move-node-to-workspace 7"
+run = "move-node-to-workspace ANKI"
 
 [[on-window-detected]]
 if.app-id = "com.ranchero.NetNewsWire-Evergreen"
 run = "move-node-to-workspace 7"
+
+[[on-window-detected]]
+if.app-id = "com.sparrowwallet.sparrow"
+run = "move-node-to-workspace BTC"
 
 [[on-window-detected]]
 if.app-id = "com.openai.codex"
