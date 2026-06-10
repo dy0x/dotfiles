@@ -112,3 +112,6 @@ bindkey -M visual '^[[P' vi-delete
 eval "$(starship init zsh)"
 autoload -Uz compinit
 compinit
+
+# Pi
+export PATH="/opt/homebrew/Cellar/node/26.0.0/bin:$PATH"
