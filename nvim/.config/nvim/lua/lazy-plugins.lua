@@ -4,7 +4,7 @@ require('lazy').setup {
   require 'plugins/autopairs',
   require 'plugins/blink',
   require 'plugins/conform',
-  require 'plugins/copilot',
+  -- require 'plugins/copilot',
   -- require 'plugins/debug',
   require 'plugins/gitsigns',
   -- require 'plugins/gruvbox',

@@ -1,7 +1,7 @@
 [[plugin.deps]]
 use = "uhs-robert/recycle-bin"
-rev = "fa68711"
-hash = "8714306b5cac6359edbacbf545fbd691"
+rev = "82da16a"
+hash = "7383d80862d3cdcc85f8658dac7b90c2"
 
 [[plugin.deps]]
 use = "Gallardo994/clippy"
@@ -10,8 +10,8 @@ hash = "977c6f4ffceada33ced20d941f1defab"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:mount"
-rev = "598cdb6"
-hash = "e3260d0b1feded8c8e3ae3afa1169e30"
+rev = "efa4d79"
+hash = "46cbdc05596a3ecd730b288e28c7079d"
 
 [flavor]
 deps = []
