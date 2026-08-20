@@ -9,11 +9,11 @@ esac
 if $IS_MAC; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
   source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  export PNPM_HOME="$HOME/Library/pnpm"
-  case ":$PATH:" in
-      *":$PNPM_HOME:"*) ;;
-      *) export PATH="$PNPM_HOME:$PATH" ;;
-  esac
+  # export PNPM_HOME="$HOME/Library/pnpm"
+  # case ":$PATH:" in
+  #     *":$PNPM_HOME:"*) ;;
+  #     *) export PATH="$PNPM_HOME:$PATH" ;;
+  # esac
 elif $IS_LINUX; then
   source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
   # (cat ~/.cache/wal/sequences &)
@@ -108,10 +108,19 @@ bindkey -M vicmd '^[[P' vi-delete-char
 bindkey -M vicmd '^e' edit-command-line
 bindkey -M visual '^[[P' vi-delete
 
+# Pi
+export PATH="/opt/homebrew/Cellar/node/26.0.0/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
+
 [ -f "$HOME/.config/.aliasrc" ] && source "$HOME/.config/.aliasrc"
 eval "$(starship init zsh)"
 autoload -Uz compinit
 compinit
 
-# Pi
-export PATH="/opt/homebrew/Cellar/node/26.0.0/bin:$PATH"

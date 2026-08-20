@@ -10,9 +10,9 @@ default-root-container-orientation = "auto"
 on-focused-monitor-changed = ["move-mouse monitor-lazy-center"]
 automatically-unhide-macos-hidden-apps = true
 persistent-workspaces = [
+  "₿",
   "AGENT",
   "ANKI",
-  "BTC",
   "1",
   "2",
   "3",
@@ -28,12 +28,12 @@ persistent-workspaces = [
 preset = "qwerty"
 
 [gaps]
-inner.horizontal = 0
-inner.vertical = 0
-outer.left = 0
-outer.bottom = 0
-outer.top = 0
-outer.right = 0
+inner.horizontal = 10
+inner.vertical = 10
+outer.left = 15
+outer.bottom = 15
+outer.top = 10
+outer.right = 15
 
 [mode.main.binding]
 alt-backspace = ["reload-config", "mode main"]
@@ -115,26 +115,24 @@ alt-w = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.s
 # 3 = Files
 alt-e = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh 3 com.apple.finder app:Finder"'
 
-# 4 = AI chat
+# 4 = Chinese Immersion
+alt-shift-w = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh 4 com.microsoft.edgemac"'
 
 # 5 = Mail / Messages
 alt-m = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 5 com.apple.mail app:Mail"'
 alt-shift-m = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 5 com.apple.MobileSMS app:Messages"'
 
-# 6 = Chinese Immersion
-# alt-shift-w = 'exec-and-forget /bin/bash -lc "aerospace workspace 6 && open -na \"Brave Browser.app\" --args --profile-directory=\"Default\""'
-alt-shift-w = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh 6 com.brave.Browser \"profile:Default\""'
-
 # 7 = Learning / reading
 alt-a = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair ANKI net.ankiweb.launcher app:Anki"'
 alt-n = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 7 com.ranchero.NetNewsWire-Evergreen app:NetNewsWire"'
 
-# 8 = Finance
-alt-s = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh BTC com.sparrowwallet.sparrow"'
+# ₿ = Finance
+alt-s = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh ₿ com.sparrowwallet.sparrow"'
+alt-shift-s = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh ₿ org.monero-project.feather"'
 
 # AGENT
 alt-g = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair AGENT com.openai.codex"'
-alt-c = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 4 com.anthropic.claudefordesktop app:Claude"'
+alt-c = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair AGENT com.anthropic.claudefordesktop app:Claude"'
 
 [[on-window-detected]]
 if.app-id = "com.mitchellh.ghostty"
@@ -149,7 +147,7 @@ run = [
 
 [[on-window-detected]]
 if.app-id = "com.anthropic.claudefordesktop"
-run = "move-node-to-workspace 4"
+run = "move-node-to-workspace AGENT"
 
 [[on-window-detected]]
 if.app-id = "com.apple.mail"
@@ -169,8 +167,24 @@ run = "move-node-to-workspace 7"
 
 [[on-window-detected]]
 if.app-id = "com.sparrowwallet.sparrow"
-run = "move-node-to-workspace BTC"
+run = 'move-node-to-workspace ₿'
+
+[[on-window-detected]]
+if.app-id = "org.monero-project.feather"
+run = 'move-node-to-workspace ₿'
 
 [[on-window-detected]]
 if.app-id = "com.openai.codex"
 run = "move-node-to-workspace AGENT"
+
+[[on-window-detected]]
+if.app-id = "com.microsoft.edgemac"
+run = "move-node-to-workspace 4"
+
+[[on-window-detected]]
+if.app-id = "org.winehq.wine.wine"
+run = "layout floating"
+
+[[on-window-detected]]
+if.window-title-regex-substring = "World of Warcraft"
+run = "layout floating"
