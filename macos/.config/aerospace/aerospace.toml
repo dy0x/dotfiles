@@ -112,8 +112,8 @@ alt-enter = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-ho
 # alt-w = 'exec-and-forget /bin/bash -lc "aerospace workspace 2 && open -na \"Brave Browser.app\" --args --profile-directory=\"Profile 1\""'
 alt-w = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh 2 com.brave.Browser \"profile:Profile 1\""'
 
-# 3 = Files
-alt-e = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh 3 com.apple.finder app:Finder"'
+# Files: open a floating window on the current workspace.
+alt-e = """exec-and-forget /usr/bin/osascript -e 'tell application "Finder" to make new Finder window' -e 'tell application "Finder" to activate'"""
 
 # 4 = Chinese Immersion
 alt-shift-w = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh 4 com.microsoft.edgemac"'
@@ -140,10 +140,7 @@ run = "move-node-to-workspace 1"
 
 [[on-window-detected]]
 if.app-id = "com.apple.finder"
-run = [
-  "move-node-to-workspace 3",
-  "layout tiling",
-]
+run = "layout floating"
 
 [[on-window-detected]]
 if.app-id = "com.anthropic.claudefordesktop"
