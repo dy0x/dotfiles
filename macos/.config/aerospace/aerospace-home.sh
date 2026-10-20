@@ -49,7 +49,7 @@ aerospace workspace "$workspace"
 
 if [[ "$bundle_id" != "-" ]]; then
     if (( repair )); then
-        scope=(--all)
+        scope=(--monitor all)
     else
         scope=(--workspace "$workspace")
     fi

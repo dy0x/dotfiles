@@ -1,28 +1,18 @@
 config-version = 2
 
-after-startup-command = []
-start-at-login = false
+after-startup-command = ["layout --workspace 4 --root h_accordion", "layout --workspace 0 --root h_accordion"]
+
+# after-startup-command = ["exec-and-forget /opt/homebrew/bin/borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0", 'exec-and-forget /opt/homebrew/bin/aerospace list-workspaces --all | while IFS= read -r workspace; do /opt/homebrew/bin/aerospace layout --workspace "$workspace" --root h_tiles; done']
+start-at-login = true
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 accordion-padding = 0
 default-root-container-layout = "tiles"
+# Side-by-side windows by default; nested groups can still stack vertically.
 default-root-container-orientation = "auto"
 on-focused-monitor-changed = ["move-mouse monitor-lazy-center"]
 automatically-unhide-macos-hidden-apps = true
-persistent-workspaces = [
-  "₿",
-  "AGENT",
-  "ANKI",
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9"
-]
+persistent-workspaces = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
 [key-mapping]
 preset = "qwerty"
@@ -84,7 +74,7 @@ alt-6 = "workspace 6"
 alt-7 = "workspace 7"
 alt-8 = "workspace 8"
 alt-9 = "workspace 9"
-alt-backtick = "workspace AGENT"
+alt-backtick = "workspace 0"
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
 alt-shift-1 = "move-node-to-workspace 1"
@@ -96,7 +86,7 @@ alt-shift-6 = "move-node-to-workspace 6"
 alt-shift-7 = "move-node-to-workspace 7"
 alt-shift-8 = "move-node-to-workspace 8"
 alt-shift-9 = "move-node-to-workspace 9"
-alt-shift-backtick = "move-node-to-workspace AGENT"
+alt-shift-backtick = "move-node-to-workspace 0"
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = "workspace-back-and-forth"
@@ -106,11 +96,12 @@ alt-shift-tab = "move-workspace-to-monitor --wrap-around next"
 # App homes
 
 # 1 = Terminal
-alt-enter = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 1 com.mitchellh.ghostty app:Ghostty"'
+alt-enter = """exec-and-forget /opt/homebrew/bin/aerospace workspace 1 && /usr/bin/osascript -e 'tell application "Ghostty" to new window' -e 'tell application "Ghostty" to activate'"""
+# alt-enter = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 1 com.mitchellh.ghostty app:Ghostty"'
 
 # 2 = Main browser
-# alt-w = 'exec-and-forget /bin/bash -lc "aerospace workspace 2 && open -na \"Brave Browser.app\" --args --profile-directory=\"Profile 1\""'
-alt-w = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh 2 com.brave.Browser \"profile:Profile 1\""'
+alt-w = 'exec-and-forget /bin/bash -lc "aerospace workspace 2 && open -na \"Brave Browser.app\" --args --profile-directory=\"Profile 1\""'
+# alt-w = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh 2 com.brave.Browser \"profile:Profile 1\""'
 
 # Files: open a floating window on the current workspace.
 alt-e = """exec-and-forget /usr/bin/osascript -e 'tell application "Finder" to make new Finder window' -e 'tell application "Finder" to activate'"""
@@ -122,29 +113,42 @@ alt-shift-w = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-
 alt-m = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 5 com.apple.mail app:Mail"'
 alt-shift-m = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 5 com.apple.MobileSMS app:Messages"'
 
+# 6 = Notes
+alt-b = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 6 md.obsidian app:Obsidian"'
+
 # 7 = Learning / reading
-alt-a = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair ANKI net.ankiweb.launcher app:Anki"'
-alt-n = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 7 com.ranchero.NetNewsWire-Evergreen app:NetNewsWire"'
+alt-a = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 8 net.ankiweb.anki app:Anki"'
+alt-n = """exec-and-forget /usr/bin/osascript -e 'tell application "Ghostty"' -e 'new window with configuration {command:"/opt/homebrew/bin/newsboat", environment variables:{"LANGUAGE=en", "LC_ALL=en_US.UTF-8"}}' -e 'activate' -e 'end tell'"""
+alt-shift-n = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 7 com.ranchero.NetNewsWire-Evergreen app:NetNewsWire"'
 
-# ₿ = Finance
-alt-s = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh ₿ com.sparrowwallet.sparrow"'
-alt-shift-s = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh ₿ org.monero-project.feather"'
+# 0
+alt-g = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 0 com.openai.codex"'
+alt-c = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 0 com.anthropic.claudefordesktop app:Claude"'
 
-# AGENT
-alt-g = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair AGENT com.openai.codex"'
-alt-c = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair AGENT com.anthropic.claudefordesktop app:Claude"'
-
+# App homes follow the existing workspace keys; 8 and 9 remain available.
 [[on-window-detected]]
 if.app-id = "com.mitchellh.ghostty"
 run = "move-node-to-workspace 1"
+
+[[on-window-detected]]
+if.app-id = "com.brave.Browser"
+run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
 if.app-id = "com.apple.finder"
 run = "layout floating"
 
 [[on-window-detected]]
+if.app-id = "com.apple.dt.Xcode"
+run = ["move-node-to-workspace 0", "layout --workspace 0 --root h_accordion"]
+
+[[on-window-detected]]
 if.app-id = "com.anthropic.claudefordesktop"
-run = "move-node-to-workspace AGENT"
+run = ["move-node-to-workspace 0", "layout --workspace 0 --root h_accordion"]
+
+[[on-window-detected]]
+if.app-id = "com.openai.codex"
+run = ["move-node-to-workspace 0", "layout --workspace 0 --root h_accordion"]
 
 [[on-window-detected]]
 if.app-id = "com.apple.mail"
@@ -156,32 +160,24 @@ run = "move-node-to-workspace 5"
 
 [[on-window-detected]]
 if.app-id = "net.ankiweb.launcher"
-run = "move-node-to-workspace ANKI"
+run = "move-node-to-workspace 8"
+
+[[on-window-detected]]
+if.app-id = "net.ankiweb.anki"
+run = "move-node-to-workspace 8"
 
 [[on-window-detected]]
 if.app-id = "com.ranchero.NetNewsWire-Evergreen"
 run = "move-node-to-workspace 7"
 
 [[on-window-detected]]
-if.app-id = "com.sparrowwallet.sparrow"
-run = 'move-node-to-workspace ₿'
-
-[[on-window-detected]]
-if.app-id = "org.monero-project.feather"
-run = 'move-node-to-workspace ₿'
-
-[[on-window-detected]]
-if.app-id = "com.openai.codex"
-run = "move-node-to-workspace AGENT"
-
-[[on-window-detected]]
 if.app-id = "com.microsoft.edgemac"
-run = "move-node-to-workspace 4"
+run = ["move-node-to-workspace 4", "layout --workspace 4 --root h_accordion"]
+
+[[on-window-detected]]
+if.app-id = "md.obsidian"
+run = ["move-node-to-workspace 6", "layout tiling"]
 
 [[on-window-detected]]
 if.app-id = "org.winehq.wine.wine"
-run = "layout floating"
-
-[[on-window-detected]]
-if.window-title-regex-substring = "World of Warcraft"
 run = "layout floating"

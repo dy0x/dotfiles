@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//'):$HOME/.local/share/cargo/bin"
+export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//'):$HOME/.local/share/cargo/bin:$HOME/.local/share/go/bin"
 
 # Default
 export EDITOR="nvim"
