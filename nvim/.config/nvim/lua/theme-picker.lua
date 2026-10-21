@@ -5,7 +5,7 @@ M.themes = {
   { name = 'Gruvbox Light', scheme = 'gruvbox', background = 'light' },
   { name = 'GitHub Light', scheme = 'github_light', background = 'light' },
   { name = 'PaperColor Light', scheme = 'PaperColor', background = 'light' },
-  { name = 'Nord (dark)', scheme = 'nord', background = 'dark' },
+  { name = 'Nord Light', scheme = 'nord-light', background = 'light' },
   { name = 'Catppuccin Latte (light)', scheme = 'catppuccin-latte', background = 'light' },
   { name = 'Catppuccin Mocha (dark)', scheme = 'catppuccin-mocha', background = 'dark' },
   { name = 'Gruvbox Dark (your original)', scheme = 'gruvbox', background = 'dark' },
