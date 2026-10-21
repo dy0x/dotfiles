@@ -7,5 +7,6 @@ return {
   { 'catppuccin/nvim', name = 'catppuccin', lazy = false, opts = {} },
   { 'rose-pine/neovim', name = 'rose-pine', lazy = false, opts = {} },
   { 'rakr/vim-one', lazy = false },
+  { 'navarasu/onedark.nvim', lazy = false, opts = { style = 'light' } },
   { 'junegunn/seoul256.vim', lazy = false },
 }
