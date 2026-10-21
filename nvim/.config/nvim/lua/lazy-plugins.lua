@@ -8,6 +8,7 @@ require('lazy').setup {
   -- require 'plugins/debug',
   require 'plugins/gitsigns',
   require 'plugins/gruvbox',
+  require 'plugins/themes',
   -- require 'plugins/indent_line',
   require 'plugins/lazydev',
   require 'plugins/lint',
