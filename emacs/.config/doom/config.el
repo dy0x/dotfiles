@@ -100,3 +100,10 @@
   (add-to-list 'eglot-server-programs
                '((typescript-ts-mode tsx-ts-mode typescript-mode)
                  . ("tsc" "--lsp" "--stdio"))))
+
+;; Match Neovim: move selected lines, reindent, and retain the selection.
+(after! evil
+  (define-key evil-visual-state-map (kbd "J")
+              (kbd ": m SPC ' > + 1 RET g v = g v"))
+  (define-key evil-visual-state-map (kbd "K")
+              (kbd ": m SPC ' < - 2 RET g v = g v")))
