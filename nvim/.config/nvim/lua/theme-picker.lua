@@ -8,6 +8,7 @@ M.themes = {
   { name = 'Nord Light', scheme = 'nord-light', background = 'light' },
   { name = 'Rosé Pine Dawn (light)', scheme = 'rose-pine-dawn', background = 'light' },
   { name = 'vim-one Light', scheme = 'one', background = 'light' },
+  { name = 'One Light (navarasu/onedark.nvim)', scheme = 'onedark', background = 'light' },
   { name = 'seoul256 Light', scheme = 'seoul256-light', background = 'light' },
   { name = 'Catppuccin Latte (light)', scheme = 'catppuccin-latte', background = 'light' },
   { name = 'Catppuccin Mocha (dark)', scheme = 'catppuccin-mocha', background = 'dark' },
