@@ -94,3 +94,9 @@
 ;; Ask test runners to emit ANSI colours in M-x compile output.
 (after! compile
   (add-to-list 'compilation-environment "FORCE_COLOR=1"))
+
+;; TypeScript 7 provides its own LSP server instead of tsserver.js.
+(after! eglot
+  (add-to-list 'eglot-server-programs
+               '((typescript-ts-mode tsx-ts-mode typescript-mode)
+                 . ("tsc" "--lsp" "--stdio"))))
