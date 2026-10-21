@@ -1,6 +1,10 @@
 config-version = 2
 
-after-startup-command = ["layout --workspace 4 --root h_accordion", "layout --workspace 0 --root h_accordion"]
+after-startup-command = [
+    "exec-and-forget /opt/homebrew/bin/borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0",
+    "layout --workspace 4 --root h_accordion",
+    "layout --workspace 0 --root h_accordion",
+]
 
 # after-startup-command = ["exec-and-forget /opt/homebrew/bin/borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0", 'exec-and-forget /opt/homebrew/bin/aerospace list-workspaces --all | while IFS= read -r workspace; do /opt/homebrew/bin/aerospace layout --workspace "$workspace" --root h_tiles; done']
 start-at-login = true
