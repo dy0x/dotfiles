@@ -5,4 +5,7 @@ return {
   { 'NLKNguyen/papercolor-theme', lazy = false },
   { 'nord-light/neovim', name = 'nord-light', lazy = false },
   { 'catppuccin/nvim', name = 'catppuccin', lazy = false, opts = {} },
+  { 'rose-pine/neovim', name = 'rose-pine', lazy = false, opts = {} },
+  { 'rakr/vim-one', lazy = false },
+  { 'junegunn/seoul256.vim', lazy = false },
 }
