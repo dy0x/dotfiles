@@ -10,6 +10,7 @@ M.themes = {
   { name = 'vim-one Light', scheme = 'one', background = 'light' },
   { name = 'One Light (navarasu/onedark.nvim)', scheme = 'onedark', background = 'light' },
   { name = 'seoul256 Light', scheme = 'seoul256-light', background = 'light' },
+  { name = 'Dayfox (light)', scheme = 'dayfox', background = 'light' },
   { name = 'Catppuccin Latte (light)', scheme = 'catppuccin-latte', background = 'light' },
   { name = 'Catppuccin Mocha (dark)', scheme = 'catppuccin-mocha', background = 'dark' },
   { name = 'Gruvbox Dark (your original)', scheme = 'gruvbox', background = 'dark' },

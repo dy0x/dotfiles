@@ -9,4 +9,5 @@ return {
   { 'rakr/vim-one', lazy = false },
   { 'navarasu/onedark.nvim', lazy = false, opts = { style = 'light' } },
   { 'junegunn/seoul256.vim', lazy = false },
+  { 'EdenEast/nightfox.nvim', lazy = false },
 }
