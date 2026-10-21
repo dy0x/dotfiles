@@ -90,3 +90,7 @@
 (setq doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 14))
 (after! doom-modeline
   (setq doom-modeline-height 32))
+
+;; Ask test runners to emit ANSI colours in M-x compile output.
+(after! compile
+  (add-to-list 'compilation-environment "FORCE_COLOR=1"))
