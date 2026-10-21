@@ -9,3 +9,4 @@ require 'lazy-bootstrap'
 require 'lazy-plugins'
 require 'options'
 require 'theme-picker'
+require('theme-auto').setup()
