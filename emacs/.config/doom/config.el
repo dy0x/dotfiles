@@ -101,9 +101,26 @@
                '((typescript-ts-mode tsx-ts-mode typescript-mode)
                  . ("tsc" "--lsp" "--stdio"))))
 
-;; Match Neovim: move selected lines, reindent, and retain the selection.
+;; Move visual lines directly so the cursor and selection follow the text.
 (after! evil
-  (define-key evil-visual-state-map (kbd "J")
-              (kbd ": m SPC ' > + 1 RET g v = g v"))
-  (define-key evil-visual-state-map (kbd "K")
-              (kbd ": m SPC ' < - 2 RET g v = g v")))
+  (defun my/evil-move-selected-lines (direction)
+    "Move selected lines by DIRECTION, retaining a linewise selection."
+    (let* ((range (evil-visual-range))
+           (beg (evil-range-beginning range))
+           (end (evil-range-end range))
+           (first (line-number-at-pos beg))
+           (last (line-number-at-pos (max beg (1- end))))
+           (forward (>= (point) (mark))))
+      (unless (if (> direction 0) (>= end (point-max)) (= beg (point-min)))
+        (evil-move beg end (if (> direction 0) (1+ last) (- first 2)))
+        (let* ((start (copy-marker (min evil-visual-mark evil-visual-point)))
+               (finish (copy-marker
+                        (save-excursion
+                          (goto-char (max evil-visual-mark evil-visual-point))
+                          (line-beginning-position 2)) t)))
+          (indent-region start finish)
+          (evil-visual-select start finish 'line (if forward 1 -1))
+          (set-marker start nil)
+          (set-marker finish nil)))))
+  (map! :v "J" (cmd! (my/evil-move-selected-lines 1))
+        :v "K" (cmd! (my/evil-move-selected-lines -1))))
