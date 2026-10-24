@@ -32,7 +32,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme nil) ; auto-dark owns theme loading.
 ;; Specify both a dark and light theme, like so and Doom will choose which one
 ;; to load based on your system light/dark setting:
 ;;
@@ -40,6 +40,23 @@
 ;;
 ;; If you want more pro-active theme switching based on OS light/dark mode, look
 ;; up the `auto-dark' package.
+(use-package! auto-dark
+  :defer t
+  :init
+  ;; Resolve the stowed config so local themes work without restowing.
+  (add-to-list 'custom-theme-load-path
+               (expand-file-name "themes/"
+                                 (file-name-directory
+                                  (file-truename (expand-file-name "config.el" doom-user-dir)))))
+  (setq auto-dark-themes '((doom-gruvbox) (dayfox))
+        auto-dark-allow-osascript t)
+  ;; Start after Doom's UI is ready, including when using a daemon.
+  (defun my-auto-dark-init-h ()
+    (auto-dark-mode 1)
+    (remove-hook 'server-after-make-frame-hook #'my-auto-dark-init-h)
+    (remove-hook 'after-init-hook #'my-auto-dark-init-h))
+  (add-hook (if (daemonp) 'server-after-make-frame-hook 'after-init-hook)
+            #'my-auto-dark-init-h -95))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -87,13 +104,26 @@
 ;; (setq frame-resize-pixelwise t)
 
 ;; Use an installed monospace font and leave room for modeline icons.
-(setq doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 14))
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font Mono" :size 20))
 (after! doom-modeline
   (setq doom-modeline-height 32))
 
 ;; Ask test runners to emit ANSI colours in M-x compile output.
 (after! compile
   (add-to-list 'compilation-environment "FORCE_COLOR=1"))
+
+;; Match Neovim's expandtab, tabstop=2 and shiftwidth=2 defaults.
+(setq-default indent-tabs-mode nil
+              tab-width 2
+              standard-indent 2)
+(after! js
+  (setq js-indent-level 2))
+(after! js2-mode
+  (setq js2-basic-offset 2))
+(after! typescript-mode
+  (setq typescript-indent-level 2))
+(after! typescript-ts-mode
+  (setq typescript-ts-mode-indent-offset 2))
 
 ;; TypeScript 7 provides its own LSP server instead of tsserver.js.
 (after! eglot

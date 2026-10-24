@@ -1,18 +1,16 @@
 config-version = 2
 
 after-startup-command = [
-    "exec-and-forget /opt/homebrew/bin/borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0",
-    "layout --workspace 4 --root h_accordion",
-    "layout --workspace 0 --root h_accordion",
+  # "exec-and-forget /opt/homebrew/bin/borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0",
+  "layout --workspace 4 --root h_accordion",
+  # "layout --workspace 0 --root h_accordion",
 ]
 
-# after-startup-command = ["exec-and-forget /opt/homebrew/bin/borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0", 'exec-and-forget /opt/homebrew/bin/aerospace list-workspaces --all | while IFS= read -r workspace; do /opt/homebrew/bin/aerospace layout --workspace "$workspace" --root h_tiles; done']
 start-at-login = true
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 accordion-padding = 0
 default-root-container-layout = "tiles"
-# Side-by-side windows by default; nested groups can still stack vertically.
 default-root-container-orientation = "auto"
 on-focused-monitor-changed = ["move-mouse monitor-lazy-center"]
 automatically-unhide-macos-hidden-apps = true
@@ -22,53 +20,64 @@ persistent-workspaces = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 preset = "qwerty"
 
 [gaps]
-inner.horizontal = 10
-inner.vertical = 10
-outer.left = 15
-outer.bottom = 15
-outer.top = 10
-outer.right = 15
+inner.horizontal = 0
+inner.vertical = 0
+outer.left = 0
+outer.bottom = 0
+outer.top = 0
+outer.right = 0
+
+# [gaps]
+# inner.horizontal = 10
+# inner.vertical = 10
+# outer.left = 10
+# outer.bottom = 10
+# outer.top = 10
+# outer.right = 10
 
 [mode.main.binding]
+alt-slash = "layout tiles horizontal vertical"
+alt-comma = "layout tiles horizontal horizontal"
+alt-t = "layout floating tiling"
+
 alt-backspace = ["reload-config", "mode main"]
 alt-q = "close --quit-if-last-window"
 
 alt-f = "fullscreen"
 alt-shift-f = "macos-native-fullscreen"
-alt-t = "layout floating tiling"
 alt-r = "layout v_tiles"
 alt-shift-r = "layout h_tiles"
 alt-ctrl-r = ["flatten-workspace-tree", "balance-sizes"]
 
+# DWM style focus
 alt-j = "focus --boundaries-action wrap-around-the-workspace dfs-next"
 alt-k = "focus --boundaries-action wrap-around-the-workspace dfs-prev"
 alt-shift-j = "swap --wrap-around dfs-next"
 alt-shift-k = "swap --wrap-around dfs-prev"
 
-# alt-j = "focus up"
-# alt-k = "focus down"
 # alt-h = "focus left"
+# alt-j = "focus down"
+# alt-k = "focus up"
 # alt-l = "focus right"
 
-# alt-shift-h = "move left"
+alt-shift-h = "move left"
 # alt-shift-j = "move down"
 # alt-shift-k = "move up"
-# alt-shift-l = "move right"
+alt-shift-l = "move right"
 
 alt-ctrl-h = "join-with left"
 alt-ctrl-j = "join-with down"
 alt-ctrl-k = "join-with up"
 alt-ctrl-l = "join-with right"
 
+# Previous resize bindings
 alt-l = "resize smart -50"
 alt-h = "resize smart +50"
+# alt-minus = "resize smart -50"
+# alt-equal = "resize smart +50"
 
-alt-cmd-h = "move left"
-alt-cmd-j = "move down"
-alt-cmd-k = "move up"
-alt-cmd-l = "move right"
-
-# See: https://nikitabobko.github.io/AeroSpace/commands#workspace
+# Workspaces
+alt-backtick = "workspace 0"
 alt-1 = "workspace 1"
 alt-2 = "workspace 2"
 alt-3 = "workspace 3"
@@ -78,9 +87,8 @@ alt-6 = "workspace 6"
 alt-7 = "workspace 7"
 alt-8 = "workspace 8"
 alt-9 = "workspace 9"
-alt-backtick = "workspace 0"
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
+alt-shift-backtick = "move-node-to-workspace 0"
 alt-shift-1 = "move-node-to-workspace 1"
 alt-shift-2 = "move-node-to-workspace 2"
 alt-shift-3 = "move-node-to-workspace 3"
@@ -90,22 +98,14 @@ alt-shift-6 = "move-node-to-workspace 6"
 alt-shift-7 = "move-node-to-workspace 7"
 alt-shift-8 = "move-node-to-workspace 8"
 alt-shift-9 = "move-node-to-workspace 9"
-alt-shift-backtick = "move-node-to-workspace 0"
 
-# See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = "workspace-back-and-forth"
-# See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-alt-shift-tab = "move-workspace-to-monitor --wrap-around next"
-
-# App homes
 
 # 1 = Terminal
 alt-enter = """exec-and-forget /opt/homebrew/bin/aerospace workspace 1 && /usr/bin/osascript -e 'tell application "Ghostty" to new window' -e 'tell application "Ghostty" to activate'"""
-# alt-enter = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 1 com.mitchellh.ghostty app:Ghostty"'
 
 # 2 = Main browser
 alt-w = 'exec-and-forget /bin/bash -lc "aerospace workspace 2 && open -na \"Brave Browser.app\" --args --profile-directory=\"Profile 1\""'
-# alt-w = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh 2 com.brave.Browser \"profile:Profile 1\""'
 
 # Files: open a floating window on the current workspace.
 alt-e = """exec-and-forget /usr/bin/osascript -e 'tell application "Finder" to make new Finder window' -e 'tell application "Finder" to activate'"""
@@ -144,15 +144,15 @@ run = "layout floating"
 
 [[on-window-detected]]
 if.app-id = "com.apple.dt.Xcode"
-run = ["move-node-to-workspace 0", "layout --workspace 0 --root h_accordion"]
+run = ["move-node-to-workspace 0"]
 
 [[on-window-detected]]
 if.app-id = "com.anthropic.claudefordesktop"
-run = ["move-node-to-workspace 0", "layout --workspace 0 --root h_accordion"]
+run = ["move-node-to-workspace 0"]
 
 [[on-window-detected]]
 if.app-id = "com.openai.codex"
-run = ["move-node-to-workspace 0", "layout --workspace 0 --root h_accordion"]
+run = ["move-node-to-workspace 0"]
 
 [[on-window-detected]]
 if.app-id = "com.apple.mail"
