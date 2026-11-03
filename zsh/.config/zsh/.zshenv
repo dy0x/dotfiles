@@ -30,6 +30,7 @@ export HISTFILE="${XDG_STATE_HOME}/bash/history"
 export KDEHOME="$XDG_CONFIG_HOME/kde"
 export KODI_DATA="${XDG_DATA_HOME:-$HOME/.local/share}/kodi"
 export LESSHISTFILE="$XDG_STATE_HOME/less/history"
+export MPLCONFIGDIR="$XDG_CACHE_HOME/matplotlib"
 export NODE_REPL_HISTORY="$XDG_STATE_HOME"/node_repl_history
 export NOTMUCH_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/notmuch-config"
 export NPM_CONFIG_TMP="$XDG_RUNTIME_DIR"/npm
