@@ -1,22 +1,25 @@
 return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    lazy = false,
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-    -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-    opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
-      auto_install = true,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      -- Use Neovim's built-in indentation for TypeScript/TSX.
-      indent = { enable = true, disable = { 'ruby', 'typescript', 'tsx' } },
-    },
+    config = function()
+      require('nvim-treesitter').setup()
+      require('nvim-treesitter').install { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' }
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function(args)
+          if vim.bo[args.buf].filetype == 'ruby' then
+            vim.bo[args.buf].syntax = 'on'
+          end
+          local ok = pcall(vim.treesitter.start, args.buf)
+          local ft = vim.bo[args.buf].filetype
+          if ok and ft ~= 'ruby' and ft ~= 'typescript' and ft ~= 'typescriptreact' then
+            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
+    end,
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --

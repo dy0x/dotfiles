@@ -52,7 +52,16 @@ return {
           -- avoid superfluous noise, notably within the handy LSP pop-ups that
           -- describe the hovered symbol using Markdown.
           if vim.bo.modifiable then
-            lint.try_lint()
+            local available = {}
+            for _, name in ipairs(lint.linters_by_ft[vim.bo.filetype] or {}) do
+              local cmd = lint.linters[name].cmd
+              if type(cmd) == 'string' and vim.fn.executable(cmd) == 1 then
+                table.insert(available, name)
+              end
+            end
+            if #available > 0 then
+              lint.try_lint(available)
+            end
           end
         end,
       })
