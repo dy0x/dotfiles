@@ -18,10 +18,10 @@ alias mkd="mkdir -pv"
 
 # system
 alias vim="nvim"
-alias acfg="nvim $HOME/.config/.aliasrc"
-alias zshcfg="nvim $HOME/.zshrc"
-alias dots="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
-alias hyprdots="nvim $HOME/.config/hypr/hyprland.conf"
+alias acfg='nvim "$HOME/.config/.aliasrc"'
+alias zshcfg='nvim "$ZDOTDIR/.zshrc"'
+alias dots='git -C "$HOME/.dotfiles"'
+alias hyprdots='nvim "$HOME/.config/hypr/hyprland.conf"'
 alias yay="paru"
 # alias backupwindows='rsync -rt --delete "$HOME/windocs/.config" "$HOME/.dotfiles/windows/"'
 
