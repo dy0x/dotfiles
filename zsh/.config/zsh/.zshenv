@@ -14,6 +14,7 @@ export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 
 # Clean
 export ANDROID_SDK_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/android"
+export ANALYZER_STATE_LOCATION_OVERRIDE="$XDG_STATE_HOME/dart/analyzer"
 export AZURE_CONFIG_DIR="$XDG_DATA_HOME"/azure
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export CP_HOME_DIR="$XDG_DATA_HOME"/cocoapods
