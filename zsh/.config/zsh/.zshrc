@@ -110,7 +110,7 @@ hermes() {
     if [[ -n "$TMUX" && -n "$TMUX_PANE" ]]; then
         tmux_window=$(tmux display-message -p -t "$TMUX_PANE" '#{window_id}')
         old_window_name=$(tmux display-message -p -t "$tmux_window" '#{window_name}')
-        old_auto_rename=$(tmux show-window-options -qv -t "$tmux_window" automatic-rename)
+        old_auto_rename=$(tmux show-window-options -v -t "$tmux_window" automatic-rename 2>/dev/null)
         tmux rename-window -t "$tmux_window" hermes
     fi
     if $IS_MAC; then
@@ -125,9 +125,9 @@ hermes() {
     if [[ -n "$tmux_window" ]]; then
         tmux rename-window -t "$tmux_window" "$old_window_name"
         if [[ -n "$old_auto_rename" ]]; then
-            tmux set-window-option -q -t "$tmux_window" automatic-rename "$old_auto_rename"
+            tmux set-window-option -t "$tmux_window" automatic-rename "$old_auto_rename"
         else
-            tmux set-window-option -qu -t "$tmux_window" automatic-rename
+            tmux set-window-option -u -t "$tmux_window" automatic-rename
         fi
     fi
     return $exit_code
