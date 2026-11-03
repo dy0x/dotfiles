@@ -6,6 +6,17 @@ case "$(uname -s)" in
   Linux)  IS_LINUX=true ;;
 esac
 
+# Match Codex syntax highlighting to macOS appearance when starting a session.
+if $IS_MAC; then
+  codex() {
+    local theme=gruvbox-light
+    if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == Dark ]]; then
+      theme=gruvbox-dark
+    fi
+    command codex -c "tui.theme=$theme" "$@"
+  }
+fi
+
 if $IS_MAC; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
   source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
