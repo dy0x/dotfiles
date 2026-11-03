@@ -86,15 +86,15 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-lfcd () {
-    tmp="$(mktemp)"
-    lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp" >/dev/null
-        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-    fi
-}
+# lfcd () {
+#     tmp="$(mktemp)"
+#     lf -last-dir-path="$tmp" "$@"
+#     if [ -f "$tmp" ]; then
+#         dir="$(cat "$tmp")"
+#         rm -f "$tmp" >/dev/null
+#         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+#     fi
+# }
 
 yazicd() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -102,6 +102,35 @@ yazicd() {
     IFS= read -r -d '' cwd < "$tmp"
     [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
     rm -f -- "$tmp"
+}
+
+hermes() {
+    local remote_command="/home/hermes/.local/bin/hermes"
+    local tmux_window old_window_name old_auto_rename exit_code
+    if [[ -n "$TMUX" && -n "$TMUX_PANE" ]]; then
+        tmux_window=$(tmux display-message -p -t "$TMUX_PANE" '#{window_id}')
+        old_window_name=$(tmux display-message -p -t "$tmux_window" '#{window_name}')
+        old_auto_rename=$(tmux show-window-options -qv -t "$tmux_window" automatic-rename)
+        tmux rename-window -t "$tmux_window" hermes
+    fi
+    if $IS_MAC; then
+        local skin=warm-lightmode
+        if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == Dark ]]; then
+            skin=default
+        fi
+        remote_command+=" skin use $skin && /home/hermes/.local/bin/hermes"
+    fi
+    ssh -t hermes@192.168.0.21 "$remote_command $*"
+    exit_code=$?
+    if [[ -n "$tmux_window" ]]; then
+        tmux rename-window -t "$tmux_window" "$old_window_name"
+        if [[ -n "$old_auto_rename" ]]; then
+            tmux set-window-option -q -t "$tmux_window" automatic-rename "$old_auto_rename"
+        else
+            tmux set-window-option -qu -t "$tmux_window" automatic-rename
+        fi
+    fi
+    return $exit_code
 }
 
 bindkey -s '^o' 'yazicd\n'
