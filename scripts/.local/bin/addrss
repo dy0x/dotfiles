@@ -1,0 +1,73 @@
+#!/bin/sh
+
+usage() { echo 'Usage: addrss [--remote] <feed-url>'; }
+remote_mode=false
+case ${1-} in
+    -h|--help) usage; exit 0 ;;
+    --remote) remote_mode=true; shift ;;
+esac
+if [ "$#" -ne 1 ]; then
+    usage >&2
+    exit 2
+fi
+case $1 in
+    http://*|https://*) ;;
+    *) echo 'addrss: Please provide an HTTP or HTTPS feed URL.' >&2; exit 2 ;;
+esac
+
+config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/newsboat"
+if [ "$remote_mode" = false ]; then
+    urls="$config_dir/urls"
+    if [ -f "$urls" ] && awk -v url="$1" '$1 == url { found=1 } END { exit !found }' "$urls"; then
+        echo 'addrss: Feed already exists in the local Newsboat URLs file.' >&2
+        exit 1
+    fi
+    printf '%s\n' "$1" >> "$urls" || exit 1
+    echo 'Added to local Newsboat URLs.'
+    echo 'Note: Newsboat must use urls-source "local" to read this file.'
+    exit 0
+fi
+
+config="$config_dir/config"
+password_file="$config_dir/.freshrss_pass"
+setting() {
+    sed -n "s/^[[:space:]]*$1[[:space:]]*\"\([^\"]*\)\".*/\1/p" "$config" | tail -n 1
+}
+base=$(setting freshrss-url) || exit 1
+login=$(setting freshrss-login) || exit 1
+base=${base%/}
+if [ -z "$base" ] || [ -z "$login" ] || [ ! -r "$password_file" ]; then
+    echo 'addrss: Check the FreshRSS URL, login and password file in ~/.config/newsboat.' >&2
+    exit 1
+fi
+password=$(cat "$password_file") || exit 1
+# JSON quoting is also valid for curl config strings, keeping secrets off the command line.
+quote() { printf '%s' "$1" | jq -Rs .; }
+response=$(
+    { printf 'data-urlencode = %s\n' "$(quote "Email=$login")" "$(quote "Passwd=$password")"; } |
+        curl -fsS --max-time 30 -K - "$base/accounts/ClientLogin"
+) || { echo 'addrss: Could not authenticate with FreshRSS.' >&2; exit 1; }
+unset password
+auth=$(printf '%s\n' "$response" | sed -n 's/^Auth=//p' | head -n 1)
+if [ -z "$auth" ]; then
+    echo 'addrss: FreshRSS did not return an authentication token.' >&2
+    exit 1
+fi
+header=$(quote "Authorization: GoogleLogin auth=$auth")
+token=$(printf 'header = %s\n' "$header" | curl -fsS --max-time 30 -K - "$base/reader/api/0/token") || {
+    echo 'addrss: Could not obtain a FreshRSS write token.' >&2; exit 1;
+}
+[ -n "$token" ] || { echo 'addrss: FreshRSS returned an empty write token.' >&2; exit 1; }
+result=$(
+    printf 'header = %s\ndata-urlencode = %s\ndata-urlencode = %s\n' \
+        "$header" "$(quote "quickadd=$1")" "$(quote "T=$token")" |
+        curl -fsS --max-time 30 -K - "$base/reader/api/0/subscription/quickadd"
+) || { echo 'addrss: Could not add the feed to FreshRSS.' >&2; exit 1; }
+if printf '%s' "$result" | jq -e '.numResults == 1' >/dev/null 2>&1; then
+    name=$(printf '%s' "$result" | jq -r '.streamName // .query // "feed"')
+    printf 'Added: %s\n' "$name"
+else
+    error=$(printf '%s' "$result" | jq -r '.error // "FreshRSS could not add the feed."' 2>/dev/null) || error='Invalid response from FreshRSS.'
+    printf 'addrss: %s\n' "$error" >&2
+    exit 1
+fi

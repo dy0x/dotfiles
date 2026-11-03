@@ -18,7 +18,7 @@
    },
    "font": {
       "normal": {
-         "size": 16
+         "size": 18
       }
    },
    "theme": {
@@ -34,6 +34,22 @@
       "material": "liquid_glass"
    },
    "providers": {
+      "@huzef44/store.raycast.screenocr": {
+         "preferences": {
+            "primaryLanguage": "en-US",
+            "ocrMode": {
+               "Windows": "accurate"
+            },
+            "languageCorrection": true,
+            "playSound": true,
+            "showToast": true,
+            "ignoreLineBreaks": false,
+            "keepImage": false,
+            "resultAction": {
+               "Windows": "copy"
+            }
+         }
+      },
       "scripts": {
          "preferences": {
             "customDirs": [

@@ -1,8 +1,15 @@
 #!/bin/bash
 
 set -euo pipefail
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 repair=0
+anywhere=0
+
+if [[ "${1:-}" == "--anywhere" ]]; then
+    anywhere=1
+    shift
+fi
 
 if [[ "${1:-}" == "--repair" ]]; then
     repair=1
@@ -10,7 +17,7 @@ if [[ "${1:-}" == "--repair" ]]; then
 fi
 
 if [[ $# -lt 2 ]]; then
-    echo "usage: aerospace-home.sh [--repair] <workspace> <bundle-id-or-> [open-spec]" >&2
+    echo "usage: aerospace-home.sh [--anywhere|--repair] <workspace> <bundle-id-or-> [open-spec]" >&2
     exit 1
 fi
 
@@ -45,10 +52,12 @@ open_app() {
 first_window=""
 window_count=0
 
-aerospace workspace "$workspace"
+if (( ! anywhere )); then
+    aerospace workspace "$workspace"
+fi
 
 if [[ "$bundle_id" != "-" ]]; then
-    if (( repair )); then
+    if (( repair || anywhere )); then
         scope=(--monitor all)
     else
         scope=(--workspace "$workspace")
@@ -73,15 +82,15 @@ if [[ "$bundle_id" != "-" ]]; then
 fi
 
 if (( window_count == 0 )); then
+    aerospace workspace "$workspace"
     open_app
 else
-    aerospace workspace "$workspace"
+    if (( ! anywhere )); then
+        aerospace workspace "$workspace"
+    fi
 
     if [[ -n "$first_window" ]]; then
         aerospace focus --window-id "$first_window" >/dev/null 2>&1 || true
     fi
 
-    if [[ "$bundle_id" != "-" ]]; then
-        open -b "$bundle_id" >/dev/null 2>&1 || true
-    fi
 fi

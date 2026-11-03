@@ -7,7 +7,7 @@ freshrss-passwordeval "cat ~/.dotfiles/newsboat/.config/newsboat/.freshrss_pass"
 auto-reload yes
 cleanup-on-quit yes
 
-external-url-viewer "urlscan -dc -r '/$HOME/.local/bin/linkhandler {}'"
+external-url-viewer "urlscan -dc -r 'open {}'"
 
 bind-key j down
 bind-key k up
@@ -45,13 +45,13 @@ color listfocus_unread yellow default bold
 color info red black bold
 color article default default
 
-browser linkhandler
+browser open
 macro , open-in-browser
-macro t set browser "tsp youtube-dl --add-metadata -ic"; open-in-browser ; set browser linkhandler
-macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best"; open-in-browser ; set browser linkhandler
-macro v set browser "mpv"; open-in-browser ; set browser linkhandler
-macro w set browser "w3m"; open-in-browser ; set browser linkhandler
-macro p set browser "dmenuhandler"; open-in-browser ; set browser linkhandler
+macro t set browser "tsp youtube-dl --add-metadata -ic"; open-in-browser ; set browser open
+macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best"; open-in-browser ; set browser open
+macro v set browser "mpv"; open-in-browser ; set browser open
+macro w set browser "w3m"; open-in-browser ; set browser open
+macro p set browser "dmenuhandler"; open-in-browser ; set browser open
 
 ignore-article "*" "title =~ \"#shorts\""
 ignore-article "*" "link =~ \"shorts\""

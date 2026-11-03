@@ -7,5 +7,10 @@ scripts/.local/bin/hermes
 scripts/.local/bin/hermes-acp
 scripts/.local/bin/hermes-agent
 scripts/.local/bin/webi
+scripts/.local/bin/f2py
+scripts/.local/bin/numpy-config
+scripts/.local/bin/spotdl
+scripts/.local/bin/subs2cia
+scripts/.local/bin/subzipper
 newsboat/.config/newsboat/.freshrss_pass
 .claude

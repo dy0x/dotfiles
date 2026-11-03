@@ -1,3 +1,0 @@
-#!/bin/sh
-
-cd "/home/dylan/.local/share/openmw" && python "/home/dylan/.local/share/openmw/openmw_steam.py" || exit
