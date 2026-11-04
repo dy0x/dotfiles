@@ -19,8 +19,10 @@ end
 
 local function compile(show)
   local path = source()
-  if not path then return end
-  if vim.fn.executable('pdflatex') == 0 then
+  if not path then
+    return
+  end
+  if vim.fn.executable 'pdflatex' == 0 then
     vim.notify('pdflatex is not on Neovim’s PATH', vim.log.levels.ERROR)
     return
   end
@@ -28,14 +30,22 @@ local function compile(show)
   local dir = vim.fn.shellescape(vim.fn.fnamemodify(path, ':h'))
   local file = vim.fn.shellescape(vim.fn.fnamemodify(path, ':t'))
   vim.cmd('!cd ' .. dir .. ' && pdflatex -interaction=nonstopmode -halt-on-error -synctex=1 ' .. file)
-  if vim.v.shell_error == 0 and show then view(path) end
+  if vim.v.shell_error == 0 and show then
+    view(path)
+  end
 end
 
-vim.api.nvim_create_user_command('LatexCompile', function() compile(false) end, {})
-vim.api.nvim_create_user_command('LatexBuild', function() compile(true) end, {})
+vim.api.nvim_create_user_command('LatexCompile', function()
+  compile(false)
+end, {})
+vim.api.nvim_create_user_command('LatexBuild', function()
+  compile(true)
+end, {})
 vim.api.nvim_create_user_command('LatexView', function()
   local path = source()
-  if path then view(path) end
+  if path then
+    view(path)
+  end
 end, {})
 vim.keymap.set('n', '<leader>c', '<cmd>LatexCompile<CR>', { desc = 'Compile LaTeX' })
 vim.keymap.set('n', '<leader>p', '<cmd>LatexView<CR>', { desc = 'Preview LaTeX PDF' })
