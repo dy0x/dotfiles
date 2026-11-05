@@ -161,6 +161,16 @@ if (( $+commands[fzf] )); then
     bindkey -M viins '^t' fzf-history-search
 fi
 
+# Open the tmux session picker without replacing the current command line.
+tmux-session-picker() {
+    zle -I
+    tmux-sessionizer
+    zle reset-prompt
+}
+zle -N tmux-session-picker
+bindkey -M viins '\es' tmux-session-picker
+bindkey -M vicmd '\es' tmux-session-picker
+
 bindkey -s '^o' 'yazicd\n'
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 
