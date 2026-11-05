@@ -164,15 +164,15 @@ fi
 # Open the tmux session picker without replacing the current command line.
 tmux-session-picker() {
     zle -I
-    tmux-sessionizer
+    tmux-sessionizer </dev/tty >/dev/tty
     zle reset-prompt
 }
 zle -N tmux-session-picker
-bindkey -M viins '^s' tmux-session-picker
-bindkey -M vicmd '^s' tmux-session-picker
+bindkey -M viins '^f' tmux-session-picker
+bindkey -M vicmd '^f' tmux-session-picker
 
 bindkey -s '^o' 'yazicd\n'
-bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
+bindkey -s '^s' 'cd "$(dirname "$(fzf)")"\n'
 
 # Edit line in vim with ctrl-e
 autoload edit-command-line; zle -N edit-command-line
