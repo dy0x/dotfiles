@@ -164,7 +164,7 @@ fi
 # Open the tmux session picker without replacing the current command line.
 tmux-session-picker() {
     zle -I
-    tmux-sessionizer </dev/tty >/dev/tty
+    tmux-sessionizer </dev/tty >/dev/tty 2>/dev/tty
     zle reset-prompt
 }
 zle -N tmux-session-picker
