@@ -168,8 +168,8 @@ tmux-session-picker() {
     zle reset-prompt
 }
 zle -N tmux-session-picker
-bindkey -M viins '\es' tmux-session-picker
-bindkey -M vicmd '\es' tmux-session-picker
+bindkey -M viins '^s' tmux-session-picker
+bindkey -M vicmd '^s' tmux-session-picker
 
 bindkey -s '^o' 'yazicd\n'
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
