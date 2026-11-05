@@ -41,3 +41,4 @@ keybind = super+y=text:\x01\x79
 keybind = super+g=text:\x01\x47
 keybind = super+d=text:\x01\x44
 keybind = super+m=text:\x01\x6d
+keybind = super+e=text:\x01\x65

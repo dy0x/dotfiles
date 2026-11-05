@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | tr '\n' ':' | sed 's/:*$//'):$HOME/.local/share/cargo/bin:$HOME/.local/share/go/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.local/share/cargo/bin:$HOME/.local/share/go/bin"
 
 # Default
 export EDITOR="nvim"
@@ -57,5 +57,4 @@ export SHELL_SESSIONS_DISABLE=1
 # Etc Progs
 export FZF_DEFAULT_OPTS="--layout=reverse --height 40%"
 
-[ -f "$HOME/.config/.aliasrc" ] && source "$HOME/.config/.aliasrc"
 #. "/home/dylan/.local/share/cargo/env"

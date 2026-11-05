@@ -18,7 +18,7 @@ case "${ext}" in
     cpp) g++ "${file}" -o "${base}" && "./${base}" ;;
     cs) mcs "${file}" && mono "${base}.exe" ;;
     go) go run "${file}" ;;
-    h) sudo make install ;;
+    h) echo 'compiler: Header files are compiled as part of a C project; run its build command.' >&2; exit 1 ;;
     java) javac -d classes "${file}" && java -cp classes "${base}" ;;
     m) octave "${file}" ;;
     md) [ -x "$(command -v lowdown)" ] && \

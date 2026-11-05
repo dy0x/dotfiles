@@ -1,0 +1,30 @@
+#!/bin/sh
+# Print a YouTube channel ID and its RSS feed.
+if [ "$#" -ne 1 ]; then
+    echo 'Usage: yt-id <channel URL, @handle, or channel ID>' >&2
+    exit 2
+fi
+input=$1
+case $input in
+    UC*) candidate=$input ;;
+    *) candidate= ;;
+esac
+if [ -n "$candidate" ] && [ "${#candidate}" -eq 24 ] && ! printf '%s' "$candidate" | LC_ALL=C grep -q '[^A-Za-z0-9_-]'; then
+    id=$candidate
+else
+    case $input in
+        http://*|https://*) url=$input ;;
+        @*) url="https://www.youtube.com/$input" ;;
+        *) url="https://www.youtube.com/@$input" ;;
+    esac
+    page=$(curl -fLsS --max-time 30 "$url") || { echo 'yt-id: Could not fetch the channel page.' >&2; exit 1; }
+    id=$(printf '%s' "$page" | rg --no-config -o '"externalId":"(UC[a-zA-Z0-9_-]{22})"' -r '$1' | head -n 1)
+    [ -n "$id" ] || { echo 'yt-id: Could not find a channel ID in the page.' >&2; exit 1; }
+fi
+feed="https://www.youtube.com/feeds/videos.xml?channel_id=$id"
+printf 'ID:  %s\nRSS: %s\n' "$id" "$feed"
+if command -v wl-copy >/dev/null 2>&1; then
+    if printf '%s' "$feed" | wl-copy; then echo 'RSS URL copied to clipboard.'; fi
+elif command -v pbcopy >/dev/null 2>&1; then
+    if printf '%s' "$feed" | pbcopy; then echo 'RSS URL copied to clipboard.'; fi
+fi

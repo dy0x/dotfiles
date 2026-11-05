@@ -1,3 +1,4 @@
+# Platform and optional plugins
 IS_MAC=false
 IS_LINUX=false
 
@@ -6,8 +7,18 @@ case "$(uname -s)" in
   Linux)  IS_LINUX=true ;;
 esac
 
-# Match Codex syntax highlighting to macOS appearance when starting a session.
 if $IS_MAC; then
+  if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  fi
+  if (( $+commands[brew] )); then
+    autosuggestions="$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    if [[ -r "$autosuggestions" ]]; then
+      source "$autosuggestions"
+    fi
+    unset autosuggestions
+  fi
+
   codex() {
     local theme=gruvbox-light
     if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == Dark ]]; then
@@ -15,42 +26,49 @@ if $IS_MAC; then
     fi
     command codex -c "tui.theme=$theme" "$@"
   }
-fi
-
-if $IS_MAC; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  # export PNPM_HOME="$HOME/Library/pnpm"
-  # case ":$PATH:" in
-  #     *":$PNPM_HOME:"*) ;;
-  #     *) export PATH="$PNPM_HOME:$PATH" ;;
-  # esac
 elif $IS_LINUX; then
-  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+  if [[ -r /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+  fi
   # (cat ~/.cache/wal/sequences &)
 fi
 
+# Prompt and shell behaviour
 autoload -U colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-stty stop undef # Disable freezing term with ctrl+s
-setopt autocd # Auto cd into typed dir
+[[ -t 0 ]] && stty stop undef # Disable terminal flow control with Ctrl-S
+setopt autocd
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushd_silent
+setopt nobeep
+setopt numeric_glob_sort
 setopt interactive_comments
 
+# History
 HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
+[[ -d ${HISTFILE:h} ]] || mkdir -p "${HISTFILE:h}"
 HISTSIZE=100000
 SAVEHIST=100000
 
+setopt share_history
+setopt hist_ignore_dups
+setopt hist_ignore_all_dups
+setopt hist_verify
+setopt hist_ignore_space
+setopt hist_find_no_dups
 
+# Completion
 mkdir -p "$XDG_CACHE_HOME"/zsh
 
+setopt complete_in_word
 autoload -Uz compinit
 zstyle ':completion:*' cache-path "$XDG_CACHE_HOME"/zsh/zcompcache
 zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # auto capitalize
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # Lowercase matches either case
 zmodload zsh/complist
 compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
-compinit
-_comp_options+=(globdots) #include dotfiles
+_comp_options+=(globdots) # Include dotfiles
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 # Automatically quote pasted urls
@@ -59,9 +77,16 @@ zle -N bracketed-paste bracketed-paste-magic
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
-# Vi mode
+# Vi mode and keybindings
 bindkey -v
 export KEYTIMEOUT=1
+
+# Search history by the text typed before the cursor.
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey -M viins '^[[A' up-line-or-beginning-search
+bindkey -M viins '^[[B' down-line-or-beginning-search
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
@@ -86,16 +111,7 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-# lfcd () {
-#     tmp="$(mktemp)"
-#     lf -last-dir-path="$tmp" "$@"
-#     if [ -f "$tmp" ]; then
-#         dir="$(cat "$tmp")"
-#         rm -f "$tmp" >/dev/null
-#         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-#     fi
-# }
-
+# File and remote navigation
 yazicd() {
     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
     command yazi "$@" --cwd-file="$tmp"
@@ -133,13 +149,20 @@ hermes() {
     return $exit_code
 }
 
+# Search command history with fzf in vi insert mode.
+if (( $+commands[fzf] )); then
+    fzf-history-search() {
+        local selected
+        selected=$(fc -rl 1 | fzf --scheme=history --query="$LBUFFER") || return
+        zle vi-fetch-history -n "${${(z)selected}[1]}"
+        zle reset-prompt
+    }
+    zle -N fzf-history-search
+    bindkey -M viins '^t' fzf-history-search
+fi
+
 bindkey -s '^o' 'yazicd\n'
 bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
-
-# fix systemctl auto complete in zsh.
-# _systemctl_unit_state() {
-#   typeset -gA _sys_unit_state
-#   _sys_unit_state=( $(__systemctl list-unit-files "$PREFIX*" | awk '{print $1, $2}') ) }
 
 # Edit line in vim with ctrl-e
 autoload edit-command-line; zle -N edit-command-line
@@ -148,22 +171,18 @@ bindkey -M vicmd '^[[P' vi-delete-char
 bindkey -M vicmd '^e' edit-command-line
 bindkey -M visual '^[[P' vi-delete
 
-# Pi
-export PATH="/opt/homebrew/Cellar/node/26.0.0/bin:$PATH"
-
+# Tool paths and integrations
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME/bin:"*) ;;
-  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
 
 [ -f "$HOME/.config/.aliasrc" ] && source "$HOME/.config/.aliasrc"
-eval "$(starship init zsh)"
-autoload -Uz compinit
-compinit
-
+if (( $+commands[starship] )); then
+  eval "$(starship init zsh)"
+fi
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

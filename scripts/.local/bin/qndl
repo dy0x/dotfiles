@@ -1,0 +1,35 @@
+#!/bin/sh
+# Queue a download; optional command and arguments follow the URL.
+if [ "$#" -lt 1 ]; then
+    echo 'Usage: qndl <url> [command [args...]]' >&2
+    exit 2
+fi
+url=$1
+shift
+if command -v tsp >/dev/null 2>&1; then
+    spooler=tsp
+elif command -v ts >/dev/null 2>&1; then
+    spooler=ts
+else
+    echo 'qndl: task-spooler not found.' >&2
+    exit 1
+fi
+# Support the historical linkhandler argument.
+if [ "$#" -eq 1 ] && [ "$1" = 'curl -LO' ]; then
+    set -- curl -LO
+elif [ "$#" -eq 0 ]; then
+    set -- yt-dlp --embed-metadata -ic
+fi
+command -v "$1" >/dev/null 2>&1 || { printf 'qndl: command not found: %s\n' "$1" >&2; exit 1; }
+"$spooler" sh -c '
+    url=$1; shift
+    "$@" "$url"
+    status=$?
+    if [ "$status" -eq 0 ]; then message="Download finished: $url"; else message="Download failed: $url"; fi
+    if [ "$(uname -s)" = Darwin ] && command -v osascript >/dev/null 2>&1; then
+        osascript -e "on run argv" -e "display notification (item 1 of argv) with title \"Task Spooler\"" -e "end run" "$message" >/dev/null 2>&1 || :
+    elif command -v notify-send >/dev/null 2>&1; then
+        notify-send "Task Spooler" "$message" || :
+    fi
+    exit "$status"
+' qndl "$url" "$@"
