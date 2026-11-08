@@ -19,18 +19,18 @@ persistent-workspaces = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 preset = "qwerty"
 
 [gaps]
-# inner.horizontal = 0
-# inner.vertical = 0
-# outer.left = 0
-# outer.bottom = 0
-# outer.top = 0
-# outer.right = 0
-inner.horizontal = 10
-inner.vertical = 10
-outer.left = 10
-outer.bottom = 10
-outer.top = 10
-outer.right = 10
+inner.horizontal = [{ monitor."LG ULTRAWIDE" = 10 }, 0]
+inner.vertical = [{ monitor."LG ULTRAWIDE" = 10 }, 0]
+outer.left = [{ monitor."LG ULTRAWIDE" = 10 }, 0]
+outer.bottom = [{ monitor."LG ULTRAWIDE" = 10 }, 0]
+outer.top = [{ monitor."LG ULTRAWIDE" = 10 }, 0]
+outer.right = [{ monitor."LG ULTRAWIDE" = 10 }, 0]
+# inner.horizontal = 10
+# inner.vertical = 10
+# outer.left = 10
+# outer.bottom = 10
+# outer.top = 10
+# outer.right = 10
 
 [mode.main.binding]
 alt-slash = "layout tiles horizontal vertical"
@@ -104,7 +104,8 @@ alt-tab = "workspace-back-and-forth"
 alt-enter = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/aerospace-home.sh" --anywhere 1 com.mitchellh.ghostty app:Ghostty'
 
 # 2 = Main browser
-alt-w = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/aerospace-home.sh" --anywhere 2 com.brave.Browser "profile:Profile 1"'
+# alt-w = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/aerospace-home.sh" --anywhere 2 com.brave.Browser "profile:Profile 1"'
+alt-w = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/aerospace-home.sh" --anywhere 2 app.zen-browser.zen'
 
 # Files: open a floating window on the current workspace.
 alt-e = """exec-and-forget /usr/bin/osascript -e 'tell application "Finder" to make new Finder window' -e 'tell application "Finder" to activate'"""
@@ -143,6 +144,10 @@ run = "move-node-to-workspace 1"
 
 [[on-window-detected]]
 if.app-id = "com.brave.Browser"
+run = "move-node-to-workspace 2"
+
+[[on-window-detected]]
+if.app-id = "app.zen-browser.zen"
 run = "move-node-to-workspace 2"
 
 [[on-window-detected]]

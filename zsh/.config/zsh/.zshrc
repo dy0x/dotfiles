@@ -161,18 +161,21 @@ if (( $+commands[fzf] )); then
     bindkey -M viins '^t' fzf-history-search
 fi
 
-# Open the tmux session picker without replacing the current command line.
-tmux-session-picker() {
-    zle -I
-    tmux-sessionizer </dev/tty >/dev/tty 2>/dev/tty
-    zle reset-prompt
-}
-zle -N tmux-session-picker
-bindkey -M viins '^f' tmux-session-picker
-bindkey -M vicmd '^f' tmux-session-picker
+# Open the tmux session picker from the shell prompt.
+bindkey -s -M viins '^f' 'tmux-sessionizer\n'
+bindkey -s -M vicmd '^f' 'itmux-sessionizer\n'
 
 bindkey -s '^o' 'yazicd\n'
-bindkey -s '^s' 'cd "$(dirname "$(fzf)")"\n'
+# Search directories below the current directory.
+directory-picker() {
+    local selected
+    selected=$(find -L . -type d -print 2>/dev/null | fzf) || { zle reset-prompt; return; }
+    [[ -n $selected ]] && cd -- "$selected"
+    zle reset-prompt
+}
+zle -N directory-picker
+bindkey -M viins '^s' directory-picker
+bindkey -M vicmd '^s' directory-picker
 
 # Edit line in vim with ctrl-e
 autoload edit-command-line; zle -N edit-command-line
