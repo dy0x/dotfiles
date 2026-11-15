@@ -19,12 +19,12 @@ persistent-workspaces = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 preset = "qwerty"
 
 [gaps]
-inner.horizontal = [{ monitor."LG ULTRAWIDE" = 10 }, 0]
-inner.vertical = [{ monitor."LG ULTRAWIDE" = 10 }, 0]
-outer.left = [{ monitor."LG ULTRAWIDE" = 10 }, 0]
-outer.bottom = [{ monitor."LG ULTRAWIDE" = 10 }, 0]
-outer.top = [{ monitor."LG ULTRAWIDE" = 10 }, 0]
-outer.right = [{ monitor."LG ULTRAWIDE" = 10 }, 0]
+inner.horizontal = [{ monitor."LG ULTRAWIDE" = 10 }, { monitor."VX2758-Series" = 10 }, { monitor."Color LCD" = 0 }, 0]
+inner.vertical = [{ monitor."LG ULTRAWIDE" = 10 }, { monitor."VX2758-Series" = 10 }, { monitor."Color LCD" = 0 }, 0]
+outer.left = [{ monitor."LG ULTRAWIDE" = 10 }, { monitor."VX2758-Series" = 10 }, { monitor."Color LCD" = 0 }, 0]
+outer.bottom = [{ monitor."LG ULTRAWIDE" = 10 }, { monitor."VX2758-Series" = 10 }, { monitor."Color LCD" = 0 }, 0]
+outer.top = [{ monitor."LG ULTRAWIDE" = 10 }, { monitor."VX2758-Series" = 10 }, { monitor."Color LCD" = 0 }, 0]
+outer.right = [{ monitor."LG ULTRAWIDE" = 10 }, { monitor."VX2758-Series" = 10 }, { monitor."Color LCD" = 0 }, 0]
 # inner.horizontal = 10
 # inner.vertical = 10
 # outer.left = 10
@@ -104,8 +104,7 @@ alt-tab = "workspace-back-and-forth"
 alt-enter = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/aerospace-home.sh" --anywhere 1 com.mitchellh.ghostty app:Ghostty'
 
 # 2 = Main browser
-# alt-w = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/aerospace-home.sh" --anywhere 2 com.brave.Browser "profile:Profile 1"'
-alt-w = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/aerospace-home.sh" --anywhere 2 app.zen-browser.zen'
+alt-w = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/aerospace-home.sh" --anywhere 2 com.brave.Browser "profile:Profile 1"'
 
 # Files: open a floating window on the current workspace.
 alt-e = """exec-and-forget /usr/bin/osascript -e 'tell application "Finder" to make new Finder window' -e 'tell application "Finder" to activate'"""
@@ -114,16 +113,17 @@ alt-e = """exec-and-forget /usr/bin/osascript -e 'tell application "Finder" to m
 alt-b = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/aerospace-home.sh" --anywhere 4 com.microsoft.edgemac app:Microsoft\ Edge'
 
 # 5 = Mail / Messages / Telegram
-alt-m = """exec-and-forget /usr/bin/osascript -e 'tell application "Ghostty"' -e 'new window with configuration {command:"/opt/homebrew/bin/neomutt", environment variables:{"LANGUAGE=en", "LC_ALL=en_US.UTF-8"}}' -e 'activate' -e 'end tell'"""
+alt-m = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 5 com.apple.mail app:Mail"'
 alt-shift-m = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 5 com.apple.MobileSMS app:Messages"'
 
-alt-t = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/aerospace-home.sh" --repair 5 com.tdesktop.Telegram app:/Applications/Telegram.app'
+# alt-t = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/aerospace-home.sh" --repair 5 com.tdesktop.Telegram app:/Applications/Telegram.app'
 
 # Settings: float on the current workspace.
 alt-shift-s = """exec-and-forget /bin/bash -lc 'ws=$(/opt/homebrew/bin/aerospace list-workspaces --focused); /bin/bash "$HOME/.config/aerospace/aerospace-home.sh" --repair "$ws" com.apple.systempreferences'"""
 
 # 6 = Notes
 alt-o = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 6 md.obsidian app:Obsidian"'
+alt-shift-o = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 6 com.apple.Notes app:Notes"'
 
 # 7 = Learning / reading
 alt-a = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 8 net.ankiweb.anki app:Anki"'
@@ -135,7 +135,8 @@ alt-i = 'exec-and-forget /bin/bash "$HOME/.config/aerospace/aerospace-home.sh" -
 
 # 0
 alt-g = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 0 com.openai.codex"'
-alt-c = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 0 com.anthropic.claudefordesktop app:Claude"'
+alt-c = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 0 com.t3tools.t3code app:\"T3 Code (Beta)\""'
+alt-shift-c = 'exec-and-forget /bin/bash -lc "$HOME/.config/aerospace/aerospace-home.sh --repair 0 com.anthropic.claudefordesktop app:Claude"'
 
 # App homes follow the existing workspace keys; 8 and 9 remain available.
 [[on-window-detected]]
@@ -144,10 +145,6 @@ run = "move-node-to-workspace 1"
 
 [[on-window-detected]]
 if.app-id = "com.brave.Browser"
-run = "move-node-to-workspace 2"
-
-[[on-window-detected]]
-if.app-id = "app.zen-browser.zen"
 run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
@@ -165,6 +162,14 @@ run = ["move-node-to-workspace 0"]
 [[on-window-detected]]
 if.app-id = "com.openai.codex"
 run = ["move-node-to-workspace 0"]
+
+[[on-window-detected]]
+if.app-id = "com.t3tools.t3code"
+run = ["move-node-to-workspace 0"]
+
+[[on-window-detected]]
+if.app-id = "org.gnu.Emacs"
+run = ["move-node-to-workspace 3"]
 
 [[on-window-detected]]
 if.app-id = "com.apple.mail"
@@ -193,6 +198,10 @@ run = "move-node-to-workspace 4"
 [[on-window-detected]]
 if.app-id = "md.obsidian"
 run = ["move-node-to-workspace 6", "layout tiling"]
+
+[[on-window-detected]]
+if.app-id = "com.apple.Notes"
+run = "move-node-to-workspace 6"
 
 [[on-window-detected]]
 if.app-id = "org.winehq.wine.wine"
