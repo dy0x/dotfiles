@@ -4,6 +4,12 @@
 karabiner/.config/karabiner/automatic_backups/
 scripts/.local/bin/claude
 scripts/.local/bin/t3
+scripts/.local/bin/bunx
+scripts/.local/bin/env
+scripts/.local/bin/env.fish
+scripts/.local/bin/python3.13
+scripts/.local/bin/uv
+scripts/.local/bin/uvx
 scripts/.local/bin/hermes
 scripts/.local/bin/hermes-acp
 scripts/.local/bin/hermes-agent

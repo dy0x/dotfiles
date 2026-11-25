@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-export PATH="$PATH:$HOME/.local/bin:$HOME/.local/share/cargo/bin:$HOME/.local/share/go/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.local/share/cargo/bin:$HOME/.local/share/go/bin:$HOME/.bun/bin"
 
 # Default
 export EDITOR="nvim"

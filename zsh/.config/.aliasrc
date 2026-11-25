@@ -26,6 +26,7 @@ alias hyprdots='nvim "$HOME/.config/hypr/hyprland.conf"'
 
 # tools
 #yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config
+alias gccrun="gcc main.c -o build && ./build"
 alias yt="yt-dlp --add-metadata -i"
 alias yta="yt -x -f bestaudio/best"
 # alias bib="nvim /$HOME/docs/University/uni.bib"
